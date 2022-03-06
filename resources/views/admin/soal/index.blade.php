@@ -45,7 +45,7 @@
                                         @foreach ($questions as $p)
                                         <tr>
                                         	<td>{{$i}}</td>
-                                            <td><img src="{{url('storage/gambar/' . $p->gambar)}}" width="150px"  alt="{{$p->gambar}}"></td>
+                                            <td><img src="{{url('storage/gambar/soal/'.$p->exam_id. '/' .$p->gambar)}}" width="150px"  alt="{{$p->gambar}}"></td>
                                             <td>{{strip_tags($p->soal)}}</td>
                                             <td>
                                                 <a class="btn btn-info" data-toggle="modal" data-target="#detail{{$p->id}}">Show</a>
@@ -80,7 +80,7 @@
                                                       <table>
                                                         <div class="form-group">
                                                             <label for="soal">gambar :</label>
-                                                            <div id="soal"><img src="{{url('storage/gambar/' . $p->gambar)}}" alt="{{$p->gambar}}" width="150px"></div>
+                                                            <div id="soal"><img src="{{url('storage/gambar/soal/'.$p->exam_id. '/' .$p->gambar)}}" alt="{{$p->gambar}}" width="150px"></div>
                                                         </div>
                                                         <tr>
                                                         	<td colspan="2" class="justify-middle">

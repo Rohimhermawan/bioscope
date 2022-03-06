@@ -63,7 +63,8 @@ class QuestionController extends Controller
             // Filename to store
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             // // Upload Image
-            $path = $request->file('gambar')->storeAs('public/gambar', $fileNameToStore, 'local');
+            $folderFile = 'public/gambar/soal/'.$request->exam_id;
+            $request->file('gambar')->storeAs($folderFile, $fileNameToStore, 'local');
         }
    
 
@@ -128,7 +129,9 @@ class QuestionController extends Controller
             'kunjaw' => 'required'
         ]);
         if ($request->file('gambar')) {
-            
+            if ($request->oldGambar) {
+                storage::disk('public')->delete('gambar/soal/'.$request->oldExam. '/' . $request->oldGambar);
+            }
             $filenameWithExt = $request->file('gambar')->getClientOriginalName();
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -137,7 +140,8 @@ class QuestionController extends Controller
             // Filename to store
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('gambar')->store('public/gambar',$fileNameToStore);
+            $folderFile = 'public/gambar/soal/'.$request->exam_id;
+            $request->file('gambar')->storeAs($folderFile, $fileNameToStore, 'local');
         }
         $fileNameToStore = isset($fileNameToStore) ? $fileNameToStore : $question->gambar; //add a default value here
 

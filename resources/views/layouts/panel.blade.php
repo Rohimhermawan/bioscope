@@ -24,8 +24,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('sb/css/sb-admin-2.css') }}" rel="stylesheet">
 
-    <script type="text/javascript" src="{{asset('ckeditor/plugins/exportpdf/plugin.js')}}"></script>
-    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>   
+    {{-- <script type="text/javascript" src="{{asset('ckeditor/plugins/exportpdf/plugin.js')}}"></script>    --}}
 </head>
 
 <body id="page-top">
@@ -54,12 +53,12 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            {{-- <li class="nav-item active">
                 <a class="nav-link" href="{{ url('admin/tutorial')}}">
                     <i class="fab fa-youtube"></i>
                     <span>Tutorial</span>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -82,7 +81,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Item Controller:</h6>
-                        <a class="collapse-item" href="{{ url('admin/controllers/control')}}">parabot</a>
+                        <a class="collapse-item" href="{{ url('admin/controllers/control')}}">Controller</a>
                         <a class="collapse-item" href="{{ url('admin/controllers/restriction')}}">Restriction</a>
                         <a class="collapse-item" href="{{ url('admin/controllers/webinar')}}">Webinar</a>
                     </div>
@@ -122,13 +121,6 @@
                         <a class="collapse-item" href="{{url('poster/hasil')}}">Hasil Poster</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
@@ -290,13 +282,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('sb/js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('sb/vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('sb/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('sb/js/demo/chart-pie-demo.js') }}"></script>
 
     <!-- Page level plugins -->
     <script src="{{ asset('sb/vendor/datatables/jquery.dataTables.min.js') }}"></script>

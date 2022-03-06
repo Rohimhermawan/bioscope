@@ -16,7 +16,7 @@ class CreateQuiziz1sTable extends Migration
         Schema::create('quiziz1s', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->bigInteger('exam_id');
+            $table->unsignedBigInteger('exam_id');
             $table->bigInteger('benar');
             $table->bigInteger('salah');
             $table->bigInteger('kosong');

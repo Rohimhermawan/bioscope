@@ -19,6 +19,7 @@ class CreateExamsTable extends Migration
             $table->bigInteger('waktu');
             $table->bigInteger('soal');
             $table->text('peraturan');
+            $table->string('tanggal');
             $table->string('keterangan')->default('Tidak Aktif');
             $table->timestamps();
         });

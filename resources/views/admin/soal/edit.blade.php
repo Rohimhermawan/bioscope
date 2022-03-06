@@ -14,6 +14,8 @@
                             <form method="POST" action="{{url('soal/'.$data->id)}}" enctype="multipart/form-data">
                                 @method('put')
                                 @csrf
+                                <input type="text" value="{{$data->gambar}}" name="oldGambar" hidden>
+                                <input type="text" value="{{$data->exam_id}}" name="oldExam" hidden>
                                 <div class="md-5">
                                     <div class="form-group">
                                         <label for="genre" class="form-label">Test</label>
@@ -22,14 +24,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <img src="{{url('storage/gambar/.$data->gambar')}}"><br>
+                                        <img src="{{url('storage/gambar/soal/'.$data->exam_id. '/' .$data->gambar)}}" width="400px"><br>
                                         <label for="gambar">Gambar</label>
                                         <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" id="gambar" value="$data->gambar">
                                     </div>
                                     <div class="form-group">
                                         <label for="soal">Soal</label>
                                         <textarea type="number" class="form-control @error('soal') is-invalid @enderror" name="soal" id="soal">
-                                    </div>{{$data->soal}}</textarea>
+                                        {{$data->soal}}</textarea>
+                                    </div>
                                     <div class="form-group">
                                         <label for="pilihana">Pilihan A</label>
                                         <textarea type="text" class="form-control @error('pilihana') is-invalid @enderror" name="opsi_a" id="pilihana">{{$data->opsi_a}}</textarea>
@@ -64,6 +67,7 @@
                         </div>
                     </div>
                 <!-- /.container-fluid -->
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 <script>
     var peraturan = document.getElementById('peraturan');
     CKEDITOR.replace(soal);

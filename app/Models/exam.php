@@ -9,7 +9,7 @@ class exam extends Model
 {
     use HasFactory;
      protected $table = 'exams';
-     protected $fillable = ['nama', 'waktu', 'soal', 'peraturan', 'keterangan'];
+     protected $fillable = ['nama', 'waktu', 'soal', 'peraturan', 'keterangan', 'tanggal'];
     public function question()
     {
         return $this->hasMany(question::class);

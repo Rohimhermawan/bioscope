@@ -68,21 +68,21 @@ class DashboardController extends Controller
     public function controlEdit(request $request, $id)
     {
         $data = controller::find($id);
-        if ($data->type == "bool") {
+        if ($data->type == "Bool") {
             if ($data->nilai == "Aktif") {
                 controller::where('id', $id)
                     ->update([
                         'nilai' => "Tidak Aktif"
                     ]);
             }
-            if ($data->nilai == "Tidak Aktif") {
-                controller::where('id', $id)
-                    ->update([
-                        'nilai' => "Aktif"
-                    ]);
+            else if ($data->nilai == "Tidak Aktif") {
+                    controller::where('id', $id)
+                        ->update([
+                            'nilai' => "Aktif"
+                        ]);
+                }
             }
-        }
-        if ($data->type == "num") {
+        else if ($data->type == "Num") {
             if ($data->nilai == 3) {
                 controller::where('id', $id)
                     ->update([
@@ -96,7 +96,7 @@ class DashboardController extends Controller
                     ]);
             }
         }
-        if ($data->type == "var") {
+        if ($data->type == "Var") {
             $isi = $request->$id;
             controller::where('id', $id)
                 ->update([
@@ -205,7 +205,7 @@ class DashboardController extends Controller
 
     public function restrict()
     {
-        $data = user::all();
+        $data = user::with('restrict')->get();
         return view('admin.controller.batas', compact('data'));
     }
     public function reset($id)

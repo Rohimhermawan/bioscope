@@ -38,40 +38,39 @@ class AuthAdminController extends Controller
             'password' => 'required|min:8',
          ]);
          if (Auth::attempt($credentials)) {
-             $userLogin = restrict::where('User_id', auth::user()->id)->first();
-             $jumlah = $userLogin->jumlah??null;
-            
-            // khusus admin 
-            if (auth::user()->is_admin == 1) {
-                return redirect('admin');
-            } 
-            // panitia(2)/peserta(3) boleh masuk
-            if(auth::user()->is_admin == controller::find(3)->nilai ) {
-                if ($jumlah == null) {
-                    restrict::create([
-                        'User_id' => auth::user()->id,
-                        'jumlah' => 1
-                    ]);
-                    $request->session()->regenerate();
-                    return redirect('home/pembayaran');
-                }
-                if ($jumlah >= 0 && $jumlah <=2 ) {
-                    $jumlah += 1;
-                    restrict::where('User_id', auth::user()->id)
-                    ->update([
-                        'jumlah' => $jumlah
-                    ]);
-                    $request->session()->regenerate();
-                    return redirect('home/pembayaran');
-                }
-                if ($jumlah >= 3) {
-                    abort(403);
-                }    
-            } else {
-                Auth::logout();
-                abort(403);
-            }
              
+             // khusus admin 
+             if (auth::user()->is_admin == 1) {
+                 return redirect('admin');
+                } 
+                // panitia(2)/peserta(3) boleh masuk
+                else if(auth::user()->is_admin == controller::find(8)->nilai ) {
+                $userLogin = restrict::where('User_id', auth::user()->id)->first();
+                $jumlah = $userLogin->jumlah??null;
+                    if ($jumlah == null) {
+                        restrict::create([
+                            'User_id' => auth::user()->id,
+                            'jumlah' => 1
+                        ]);
+                        $request->session()->regenerate();
+                        return redirect('home/pembayaran');
+                    }
+                    else if ($jumlah >= 0 && $jumlah <=2 ) {
+                            $jumlah += 1;
+                            restrict::where('User_id', auth::user()->id)
+                            ->update([
+                                'jumlah' => $jumlah
+                            ]);
+                            $request->session()->regenerate();
+                            return redirect('home/pembayaran');
+                        }
+                    else if ($jumlah >= 3) {
+                        abort(403);
+                    }    
+                } else {
+                    Auth::logout();
+                    abort(403);
+                }
          }else{  
             return redirect('login')->withErrors([
             'email' => 'The email/password do not match our records.',
@@ -110,7 +109,7 @@ class AuthAdminController extends Controller
         user::create([
             'name' => $request->name,
             'email' => $request->email,
-            'is_admin' => controller::find(3)->nilai,
+            'is_admin' => controller::find(8)->nilai,
             'password' => Hash::make($request->password),
             'remember_token' => str::random(60)
         ]);

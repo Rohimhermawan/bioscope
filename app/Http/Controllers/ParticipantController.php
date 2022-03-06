@@ -8,6 +8,7 @@ use App\Models\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class ParticipantController extends Controller
 {
@@ -64,7 +65,7 @@ class ParticipantController extends Controller
         public function pembayaran()
     {
         $user = user::find(auth::user()->id);
-        $tanggal = controller::find(18)->nilai;
+        $tanggal = controller::find(9)->nilai;
         return view('user.pembayaran', compact('user', 'tanggal'));
     }
 
@@ -256,16 +257,14 @@ class ParticipantController extends Controller
         $request->validate([
             'bukti' => 'required|max:1024'
         ]);
-
+        $todayDate = Carbon::now()->format('d-m-Y');
         $filenameWithExt = $request->file('bukti')->getClientOriginalName();
-            //Get just filename
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // Get just ext
         $extension = $request->file('bukti')->getClientOriginalExtension();
             // Filename to store
-        $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        $fileNameToStore = time().'.'.$extension;
             // // Upload Image
-        $path = $request->file('bukti')->storeAs('public/pembayaran', $fileNameToStore, 'local');
+        $path = $request->file('bukti')->storeAs('public/pembayaran/'.$todayDate, $fileNameToStore, 'local');
 
         participant::where('user_id', $id)->update([
             'bukti' => $fileNameToStore,

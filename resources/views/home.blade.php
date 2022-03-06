@@ -180,16 +180,16 @@
                   <h1 class="section-title" data-aos="fade-up" data-aos-delay="100" style="margin:auto">BIOSCOPE</h1>
                   <h2 class="mb-4 text-white"  data-aos="fade-up" data-aos-delay="200">Biomedical Science Competition</h2>
                   <p data-aos="fade-up" data-aos-delay="300">
-                    @if($data->first()->nilai == "Aktif")
-                    <a href="{{route('login')}}" class="btn btn-success py-3 px-5 btn-pill">Login Now</a>  
+                    @if($data->find(1)->nilai == "Aktif")
+                    <a href="/login" class="btn btn-success py-3 px-5 btn-pill">Login Now</a>  
                     @endif
                     @if($data->find(2)->nilai == "Aktif")
-                    <a href="{{route('registrasi')}}" class="btn btn-primary py-3 px-5 btn-pill">Register</a>
+                    <a href="/registrasi" class="btn btn-primary py-3 px-5 btn-pill">Register</a>
                     @endif
                   </p>
                   <p data-aos="fade-up" data-aos-delay="300">
-                    @if($data->first()->nilai == "Aktif" || $data->last()->nilai == "Aktif")
-                    <a href="{{$data->find(9)->nilai}}" target="_blank" class="py-3 px-5 btn btn-warning btn-pill">See the Guideline</a>
+                    @if($data->find(3)->nilai == "Aktif")
+                    <a href="{{$data->find(4)->nilai}}" target="_blank" class="py-3 px-5 btn btn-warning btn-pill">See the Guideline</a>
                     @endif
                   </p>
                 </div>
@@ -279,7 +279,7 @@
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Webinar</h2>
             <!-- <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p> -->
-            @if ($data->find(14)->nilai == "Tidak Aktif")
+            @if ($data->find(5)->nilai == "Tidak Aktif")
             <a class="btn btn-warning btn-pill" style="color: honeydew;">Coming Soon!</a>
             @else
             <a class="btn btn-success btn-pill" href="{{route('webinar')}}" style="color: honeydew;">See More</a>
@@ -294,10 +294,10 @@
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Merchandise</h2>
             <!-- <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p> -->
-            @if ($data->find(17)->nilai == "Tidak Aktif")
+            @if ($data->find(6)->nilai == "Tidak Aktif")
             <a class="btn btn-warning btn-pill" style="color: honeydew;">Coming Soon!</a>
             @else
-            <a class="btn btn-success btn-pill" href="{{$data->find(19)->nilai}}" style="color: honeydew;">See More!</a>
+            <a class="btn btn-success btn-pill" href="{{$data->find(7)->nilai}}" style="color: honeydew;">See More!</a>
             @endif
           </div>
         </div>

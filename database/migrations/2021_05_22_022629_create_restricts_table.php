@@ -13,7 +13,7 @@ class CreateRestrictsTable extends Migration
      */
     public function up()
     {
-        Schema::create('restrics', function (Blueprint $table) {
+        Schema::create('restricts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('User_id');
             $table->string('jumlah');

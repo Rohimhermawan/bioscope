@@ -33,7 +33,7 @@
                                 <form method="POST" action="{{url('admin/controllers/'.$d->id)}}">
                                 @method('put')    
                                 @csrf
-                                @if ($d->type == 'var')
+                                @if ($d->type == 'Var')
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" value="{{$d->nilai}}" name="{{$d->id}}">
                                     <button class="btn btn-success" type="submit" id="button-addon2">Submit</button>

@@ -2,30 +2,6 @@
 @section ('content')
 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @error('gambar')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('soal')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('opsi_a')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('opsi_b')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('opsi_c')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('opsi_d')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('opsi_e')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    @error('kunci')
-                     <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tambah Soal</h1>
                     <!-- DataTales Example -->
@@ -83,7 +59,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                         <textarea type="text" class="form-control @error('opsi_d') is-invalid @enderror" name="opsi_d" id="pilihand" value="{{old('opsi_d')}}"></textarea>
-                                    </opsi_v class="form-group">
+                                    </div class="form-group">
                                         <label for="pilihane">Pilihan E</label>
                                         @error('opsi_e')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -98,7 +74,7 @@
                                         <input type="text" class="form-control @error('kunjaw') is-invalid @enderror" name="kunjaw" placeholder="masukkan kunci ujian" id="kunci" value="{{old('kunci')}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="waktusoal">Waktu Soal</label>
+                                        <label for="waktusoal">Waktu Soal (Quiziz)</label>
                                         @error('waktusoal')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -110,6 +86,7 @@
                         </div>
                     </div>
                 <!-- /.container-fluid -->
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 <script>
     var peraturan = document.getElementById('peraturan');
     CKEDITOR.replace(soal);
