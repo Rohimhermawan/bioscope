@@ -1,0 +1,357 @@
+ body {
+  overflow-x: hidden;
+}
+.last {
+  height: auto;
+}
+.modal-content {
+  box-shadow: 0 0 60px #000000;
+} 
+#T1 {
+  color: white;
+  left: 0;
+  bottom: 140px;
+}
+.satu {
+  display: block;
+  bottom: 0;
+  margin-bottom: 15px;
+}
+.dua {
+  display: block;
+  top: 0;
+  margin-bottom: 15px;
+}
+.one {
+  position: absolute;
+  background-color: salmon;
+  border-radius: 10px;
+  top: -20px;
+  left: -20px;
+  color: black;
+}
+.two {
+  position: absolute;
+  background-color: salmon;
+  border-radius: 10px;
+  top: -20px;
+  left: -20px;
+  color: black;
+}
+  .col-xl-2 {
+      display: block;
+      height:auto;
+      margin: 0 10px;
+      margin-bottom: 50px;
+      padding:10px !important;
+      border-radius: 15px;
+      color: white;
+  }
+  #round1, #round2, #round3, #round4, #round5, #round6, #round7, #line1, #line2, #line3, #line4, #line5, #line6, #line7{
+      display: none;
+  }
+  #line {
+    display: block;
+    width: 6px;
+    height: 780px;
+    background-color: #000000;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    z-index: -1;
+  }
+  #tambahan {
+    position: static;
+    box-sizing: border-box;
+  }
+  #tanggal {
+    position: relative;
+    top: -20px;
+    left: -32px;
+    width: max-content;
+  }
+  .col-3 {
+      height: 200px;
+  }
+  #logo {
+    width: 50%;
+    height: 50%;
+  }
+  .my-3 {
+    background-color: transparent;
+    text-align: justify;
+    cursor: pointer;
+    height: 280px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    width: 100% !important;
+  }
+  .tema {
+    height: 300px;
+  }
+  .maskot {
+    height: 725px;
+  }
+  .what {
+    height: 300px;
+  }
+  .logo img {
+    width: 100%;
+  }
+  #prev, .col-md-4 {
+    display: block;
+    margin: auto;
+  }
+.col-md-5 li a b:hover {
+    color: #bebebe;
+  }
+@media (min-width:540px) {
+    #round1, #round2, #round3, #round4, #round5, #round6, #round7, #line1, #line2, #line3, #line4, #line5, #line6, #line7 {
+            display: none;
+        }
+    #courses-section {
+      display: block;
+    }
+    .my-3 {
+      width: 100%;
+      padding: 0 !important;
+    }
+    #logo {
+      width: 22%; 
+      height: 22%;
+    }
+    .modal-body {
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 100%;
+    }
+    .my-3 {
+      background-color: transparent;
+      text-align: justify;
+      padding: 15px;
+      cursor: pointer;
+      height: 280px;
+      background-size:contain;
+      background-repeat: no-repeat;
+    }
+    #prev, .col-md-4 {
+      display: block;
+      margin: auto;
+    }
+}
+  @media (min-width:1140px) {
+     #round1, #round2, #round3, #round4, #round5, #round6, #round7, #line1, #line2, #line3, #line4, #line5, #line6, #line7 {
+        display: block;
+    }
+    .last {
+      padding-bottom: 400px;
+    }
+    #T1 {
+      bottom: -30px;
+      left: -92px;
+    }
+    #line {
+        width: 85%;
+        height: 6px;
+        background-color: #343a40;
+        position: absolute;
+        top: 170px;
+        left: 14%;
+        z-index: -1;
+      }
+      .one {
+        position: absolute;
+        background-color: salmon;
+        border-radius: 10px;
+        left: -20px;
+        color: black;
+      }
+      .two {
+        position: absolute;
+        background-color: salmon;
+        border-radius: 10px;
+        left: -20px;
+        color: black;
+      }
+      #line1 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 100px;
+        left: 14%;
+        z-index: -1;
+      }
+      #round1 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 13.3%;
+        z-index: 2;
+      }
+      #line2 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 160px;
+        left: 30.16%;
+        z-index: -1;
+      }
+      #round2 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 29.46%;
+        z-index: 2;
+      }
+      #line3 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 100px;
+        left: 44.32%;
+        z-index: -1;
+      }
+      #round3 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 43.62%;
+        z-index: 2;
+      }
+      #line4 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 160px;
+        left: 57.48%;
+        z-index: -1;
+      }
+      #round4 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 56.78%;
+        z-index: 2;
+      }
+      #line5 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 100px;
+        left: 72%;
+        z-index: -1;
+      }
+      #round5 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 71.3%;
+        z-index: 2;
+      }
+      #line6 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 160px;
+        left: 85.8%;
+        z-index: -1;
+      }
+      #round6 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 85.1%;
+        z-index: 2;
+      }
+      #line7 {
+        position: absolute;
+        background-color: #343a40;
+        width: 5px;
+        height: 70px;
+        top: 100px;
+        left: 99.7%;
+        z-index: -1;
+      }
+      #round7 {
+        position: absolute;
+        background-color: #343a40;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        top: 160px;
+        left: 99%;
+        z-index: 2;
+      }
+      .col-xl-2{
+        position: absolute;
+        border-radius: 15px;
+        height: 200px;
+        color: white;
+        width: 170px !important;
+      }
+      .tengah {
+        padding-top:6% !important;
+      }
+      .satu {
+        top: -100px;
+      }
+      .dua {
+        top: 250px;
+      }
+      #tujuh {
+        left: 93%;
+      }
+      #enam {
+        left: 79.15%;
+      }
+      #lima {
+        left: 65.32%;
+      }
+      #empat {
+        left: 51.5%;
+      }
+      #tiga {
+        left: 37.66%;
+      }
+      #dua {
+        left: 23.83%;
+      }
+      #satu {
+        left: 10%;
+      }
+      .my-3 {
+        background-color: transparent;
+        text-align: justify;
+        padding: 15px;
+        cursor: pointer;
+        height: 280px;
+        background-size:contain;
+        background-repeat: no-repeat;
+      }
+      #more {display: none;}      
+  }
+
