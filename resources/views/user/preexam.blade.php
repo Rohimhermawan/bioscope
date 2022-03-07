@@ -56,14 +56,14 @@ $data = $d[0];
 					<div>
             @if ($_COOKIE['time']??'')
             
-            <form action="{{url('exam/'.$ujian->id.'?nomer='.$nomor.'&id='.$id)}}" method="POST">
+            <form action="{{url('exam/'.$ujian->id.'?nomer=1&id='.$id)}}" method="POST">
               @csrf
               <button class="btn btn-success" type="submit">Lanjutkan</button>
             </form>
             @else
             <form action="{{url('exam/'.$soal[0]->exam_id.'?nomer=1&id='.$soal[0]->id)}}" method="POST">
               @csrf
-              <button class="btn btn-warning" type="submit">Mulai</button>
+              <button class="btn btn-warning" type="submit" id="generate">Mulai</button>
             </form>
             @endif
           </div>  
@@ -94,12 +94,10 @@ $data = $d[0];
     if ({{$data->id}}) {
       upload.classList.remove("disabled");
     } 
-
     if ('{{$user->pembayaran}}' == 'Sudah Bayar') {
     var test = document.getElementById('test');
       test.classList.remove("disabled");
     }
-
   // Get today's date and time
 	  // var now = new Date().getTime();
 	  // sessionStorage.setItem('time', now);

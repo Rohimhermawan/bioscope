@@ -41,6 +41,7 @@ Route::get('/admin/certificate/create1', [App\Http\Controllers\DashboardControll
 Route::get('/admin/certificate/create2', [App\Http\Controllers\DashboardController::class, 'generateCertif2']);
 
 	// participant
+	Route::get('/fetch/participant', [App\Http\Controllers\ParticipantController::class, 'fetch']);
 Route::get('/participants', [App\Http\Controllers\ParticipantController::class, 'index']);
 Route::get('/participants/bayar', [App\Http\Controllers\ParticipantController::class, 'bayar']);
 Route::get('/participants/bukti-pembayaran', [App\Http\Controllers\ParticipantController::class, 'bukti']);

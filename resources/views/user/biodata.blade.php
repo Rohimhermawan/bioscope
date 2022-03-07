@@ -10,99 +10,99 @@
 	<p>
   </div>
   <div>
-    <a href="{{url('home/kartu-peserta/'.$user->id)}}" target="_blank" class="btn badge bg-warning text-align-right">Cetak Kartu Peserta</a>
-    <a href="{{url('home/identitas/'.$user->id)}}" class="btn badge bg-info text-align-right">Edit Biodata</a>
+    <a href="{{url('home/kartu-peserta/'.$participant->id)}}" target="_blank" class="btn badge bg-warning text-align-right">Cetak Kartu Peserta</a>
+    <a href="{{url('home/identitas/'.$participant->id)}}" class="btn badge bg-info text-align-right">Edit Biodata</a>
   </div>
   	<div class="col-md-11" id="data" style="margin: auto;">
   		<div class="table-responsive">
 	<table class="table">
 		<tr>
 			<td >Cabang</td>
-			<td >: {{$user->cabang}}</td>
+			<td >: {{$participant->cabang}}</td>
 		</tr>
 		<tr>
 			<td >Sekolah</td>
-			<td >: {{$user->sekolah}}</td>
+			<td >: {{$participant->sekolah}}</td>
 		</tr>
 		<tr>
 			<td >Guru Pembimbing</td>
-			<td >: {{$user->pembimbing}}</td>
+			<td >: {{$participant->pembimbing}}</td>
 		</tr>
           <tr>
             <td >Sekolah</td>
-            <td >: {{$user->sekolah}}</td>
+            <td >: {{$participant->sekolah}}</td>
           </tr>
   				<tr>
   					<td>Nama Ketua</td>
-  					<td>: {{$user->nama1}}</td>
+  					<td>: {{$participant->nama1}}</td>
   					<td>Nama Anggota</td>
-  					<td>: {{$user->nama2}}</td>
+  					<td>: {{$participant->nama2}}</td>
   					<td>Nama Anggota</td>
-  					<td>: {{$user->nama3}}</td>
+  					<td>: {{$participant->nama3}}</td>
   				</tr>
   				<tr>
   					<td>Domisili (Asal Kota)</td>
-  					<td>: {{$user->domisili1}}</td>
+  					<td>: {{$participant->domisili1}}</td>
   					<td>Domisili (Asal Kota)</td>
-  					<td>: {{$user->domisili2}}</td>
+  					<td>: {{$participant->domisili2}}</td>
   					<td>Domisili (Asal Kota)</td>
-  					<td>: {{$user->domisili3}}</td>
+  					<td>: {{$participant->domisili3}}</td>
   				</tr>
   				<tr>
   					<td>Kelas</td>
-  					<td>: {{$user->kelas1}}</td>
+  					<td>: {{$participant->kelas1}}</td>
   					<td>Kelas</td>
-  					<td>: {{$user->kelas2}}</td>
+  					<td>: {{$participant->kelas2}}</td>
   					<td>Kelas</td>
-  					<td>: {{$user->kelas3}}</td>
+  					<td>: {{$participant->kelas3}}</td>
   				</tr>
   				<tr>
   					<td>Alamat</td>
-  					<td>: {{$user->alamat1}}</td>
+  					<td>: {{$participant->alamat1}}</td>
   					<td>Alamat</td>
-  					<td>: {{$user->alamat2}}</td>
+  					<td>: {{$participant->alamat2}}</td>
   					<td>Alamat</td>
-  					<td>: {{$user->alamat3}}</td>
+  					<td>: {{$participant->alamat3}}</td>
   				</tr>
   				<tr>
   					<td>No. Handphone</td>
-  					<td>{{$user->telepon1}}</td>
+  					<td>{{$participant->telepon1}}</td>
   					<td>No. Handphone</td>
-  					<td>{{$user->telepon2}}</td>
+  					<td>{{$participant->telepon2}}</td>
   					<td>No. Handphone</td>
-  					<td>{{$user->telepon3}}</td>
+  					<td>{{$participant->telepon3}}</td>
   				</tr>
   				<tr>
   					<td>Id Line</td>
-  					<td>{{$user->line1}}</td>
+  					<td>{{$participant->line1}}</td>
   					<td>Id Line</td>
-  					<td>{{$user->line2}}</td>
+  					<td>{{$participant->line2}}</td>
   					<td>Id Line</td>
-  					<td>{{$user->line3}}</td>
+  					<td>{{$participant->line3}}</td>
   				</tr>
   				<tr>
   					<td>Email</td>
-  					<td>{{$user->email1}}</td>
+  					<td>{{$participant->email1}}</td>
   					<td>Email</td>
-  					<td>{{$user->email2}}</td>
+  					<td>{{$participant->email2}}</td>
   					<td>Email</td>
-  					<td>{{$user->email3}}</td>
+  					<td>{{$participant->email3}}</td>
   				</tr>
   				<tr>
   					<td>Foto Diri</td>
-  					<td><img src="{{asset('storage/foto/'.$user->foto1)}}" alt="{{$user->foto1}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{asset('storage/identitas/foto/'.$participant->foto1)}}" alt="{{$participant->foto1}}" style="width: 300px; height: 400px;"></td>
   					<td>Foto Diri</td>
-  					<td><img src="{{url('storage/foto/'.$user->foto2)}}" alt="{{$user->foto2}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto2)}}" alt="{{$participant->foto2}}" style="width: 300px; height: 400px;"></td>
   					<td>Foto Diri</td>
-  					<td><img src="{{url('storage/foto/'.$user->foto3)}}" alt="{{$user->foto3}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto3)}}" alt="{{$participant->foto3}}" style="width: 300px; height: 400px;"></td>
   				</tr>
   				<tr>
   					<td>Kartu Pelajar</td>
-  					<td><img src="{{url('storage/kartu/'.$user->kartu1)}}" alt="{{$user->kartu1}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu1)}}" alt="{{$participant->kartu1}}" style="width: 400px; height: 300px;"></td>
   					<td>kartu pelajar</td>
-  					<td><img src="{{url('storage/kartu/'.$user->kartu2)}}" alt="{{$user->kartu2}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu2)}}" alt="{{$participant->kartu2}}" style="width: 400px; height: 300px;"></td>
   					<td>kartu pelajar</td>
-  					<td><img src="{{url('storage/kartu/'.$user->kartu3)}}" alt="{{$user->kartu3}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu3)}}" alt="{{$participant->kartu3}}" style="width: 400px; height: 300px;"></td>
   				</tr>
   			</table>
   		</div>

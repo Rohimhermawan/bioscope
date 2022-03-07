@@ -32,7 +32,7 @@
                                         @error('tanggal')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        {{old('tanggal', $data->tanggal))}}
+                                        {{old('tanggal', $data->tanggal)}}
                                        <input type='datetime-local' class="form-control @error('time') is-invalid @enderror" name="tanggal" id="time">
                                     </div>
                                 </div>

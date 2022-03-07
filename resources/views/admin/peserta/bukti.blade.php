@@ -82,7 +82,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img src="{{asset('storage/pembayaran/'.$p->participant[0]->bukti)}}" class="img-fluid">
+                            <img src="{{asset('storage/pembayaran/'.$p->participant[0]->updated_at->format('d-m-Y'). '/' .$p->participant[0]->bukti)}}" class="img-fluid">
                         </div>
                     </div>
                 </div>

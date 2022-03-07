@@ -15,130 +15,94 @@ use App\Models\Quiziz;
 use App\Models\Quiziz1;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $test = exam::where('keterangan', 'Aktif')->get();
         $user = auth::user();
-        // dd($user->answer);
         $exam = answer::where('user_id', $user->id)->get();
         return view('user.test', compact('test', 'user', 'exam'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $id)
     {
         $ujian = exam::find($id);
         $user = auth::user();
-        $soal = question::where('exam_id', $id)->inRandomOrder($user->id)->get();
-        for ($i = 1; $i <= count($soal); $i++) {
-            $userid = $_COOKIE['userid'.$i]??$user->id;
-            $examid = $_COOKIE['examid'.$i]??$soal[$i-1]->exam_id;
-            $questionid = $_COOKIE['questionid'.$i]??$soal[$i-1]->id;
-            $jawaban = $_COOKIE['jawaban'.$i]??null;
-            $data = [
-            'userid' => $userid,
-            'examid' => $examid,
-            'questionid' => $questionid,
-            'jawaban' => $jawaban,
-            ];
-        session([
-            'nomor'.$i => $data
-            ]);  
-        }
-        // take request
-         $data = session()->all();
-         for ($i = 1; $i <= count($soal); $i++) {
-          $user_id[] = $data['nomor'.$i]['userid'];
-          $exam_id[] = $data['nomor'.$i]['examid'];
-          $question_id[] = $data['nomor'.$i]['questionid'];
-          $pilihan[] = $data['nomor'.$i]['jawaban'];
-         }
-        // take key
-
-          for ($i = 0; $i < count($soal); $i++ ) {
+        // take result
+        $result = answer::where([
+             ['user_id', '=', $user->id],
+             ['exam_id', '=', $id],
+             ])->get();
+        for ($i = 0; $i < count($result); $i++ ) {
+            $pilihan[] = [$result[$i]->id, strtoupper($result[$i]->jawaban)];
+            }
+            // take key
+            $soal = question::where('exam_id', $id)->inRandomOrder($user->id)->get();
+            for ($i = 0; $i < count($soal); $i++ ) {
             $kunjaw[] = strtoupper($soal[$i]->kunjaw);
-         }
-
-         for ($i = 0; $i < count($soal) ; $i++) {
-             if ($kunjaw[$i] == $pilihan[$i]) {
-                 $hasil[$i] = 'Benar';
-             } elseif ($pilihan[$i] == null) {
-                 $hasil[$i] = 'Kosong';
-             } else {
-                 $hasil[$i] = 'Salah';
-             }
-         }
-        //  conclusion
-         $nilai = array_count_values($hasil);
-         $benar = $nilai['Benar']??0;
-         $salah = $nilai['Salah']??0;
-         $kosong = $nilai['Kosong']??0;
-          //insert using foreach loop
-          for ($i = 0; $i < count($soal); $i++ ) {
-            $scores = new Answer();
-            $scores->question_id = isset($question_id[$i]) ? $question_id[$i] : ''; //add a default value here
-            $scores->user_id = isset($user_id[$i]) ? $user_id[$i] : ''; //add a default value here
-            $scores->jawaban = isset($pilihan[$i]) ? $pilihan[$i] : ''; //add a default value here
-            $scores->exam_id = isset($exam_id[$i]) ? $exam_id[$i] : ''; //add a default value here
-            $scores->hasil = isset($hasil[$i]) ? $hasil[$i] : ''; //add a default value here
-            $scores->save();
         }
-        $jenis = explode('_', $ujian->nama);
-        $data = quiziz::where([
-            ['user_id', '=' ,$user_id[0]],
-            ['exam_id', '=', $jenis[1]??0],
-            ])->get();
-        $ujian = exam::find($exam_id[0]);
-              result::create([
-                'user_id' => $user_id[0],
-                'exam_id' => $exam_id[0],
+        for ($i = 0; $i < count($soal) ; $i++) {
+             if ($kunjaw[$i] == $pilihan[$i][1]) {
+                 $hasil[$i] = 'Benar';
+                } elseif ($pilihan[$i][1] == null) {
+                    $hasil[$i] = 'Kosong';
+                } else {
+                    $hasil[$i] = 'Salah';
+                }
+            }
+         //insert using foreach loop
+         for ($i = 0; $i < count($soal); $i++ ) {
+            answer::where('id', '=', $pilihan[$i][0])
+                    ->update([
+                        'hasil' => $hasil[$i]   
+                    ]);
+            }
+            //  conclusion
+            $nilai = array_count_values($hasil);
+            $benar = $nilai['Benar']??0;
+            $salah = $nilai['Salah']??0;
+            $kosong = $nilai['Kosong']??0;
+            result::create([
+                'user_id' => $user->id,
+                'exam_id' => $id,
                 'benar' => $benar,
                 'salah' => $salah,
                 'kosong' => $kosong,
                 'dijawab' => $salah+$benar,
                 'score' => $benar*4-$salah,
-              ]);
-              
+            ]);
+            
+            $ujian = exam::find($id);
+            $data = quiziz::where([
+                ['user_id', '=' ,$user->id],
+                ['exam_id', '=', $id??0],
+                ])->get();
+            $jenis = explode('_', $ujian->nama);
           if (last($jenis) == 'quiziz') {
             quiziz::create([
-                'user_id' => $user_id[0],
-                'exam_id' => $jenis[1],
+                'user_id' => $user->id,
+                'exam_id' => $id,
                 'benar' => $benar,
                 'salah' => $salah,
                 'kosong' => $kosong,
                 'dijawab' => $salah+$benar,
                 'score' => $benar*4-$salah,
               ]);
-              //   quizzi
+              //   quiziz
               if ($data->count() == 2) {
                   $data1 = [$data->first()->benar, $data->first()->salah, $data->first()->kosong];
                   $data2 = [$data->last()->benar, $data->last()->salah, $data->last()->kosong];
                 quiziz1::create([
-                    'user_id' => $user_id[0],
-                    'exam_id' => $jenis[1],
+                    'user_id' => $user->id,
+                    'exam_id' => $id,
                     'benar' => $benar+$data1[0]+$data2[0],
                     'salah' => $salah+$data1[1]+$data2[1],
                     'kosong' => $kosong+$data1[2]+$data2[2],
@@ -151,25 +115,37 @@ class ExamController extends Controller
             return redirect('exam');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($data, request $request)
     {
+        // dd($request->id);
         $id = auth::user()->id;
         $time = $request->cookie('time');
-        $soal = question::find($request->id);
         $soall = question::where('exam_id', $data)->inRandomOrder($id)->get();
+        $soal = $soall->find($request->id);
         $ujian = exam::find($data);
         $last = [];
-         $jenis = explode('_', $ujian->nama);
-
-            for ($i = 1; $i <= $ujian->soal; $i++) {
-            
-           $sudah[] = $_COOKIE['questionid'.$i]??null;
+        $jenis = explode('_', $ujian->nama);
+        if (isset($_COOKIE['jawaban'])) {
+            $idJawaban = str::of($_COOKIE['jawaban'])->explode(',');
+            $answer = answer::where('question_id', $idJawaban->first())->first();
+            if ($_COOKIE['prevId'] == $idJawaban->first()) {
+                if ($answer->jawaban != $idJawaban->last()) {
+                    answer::where('question_id', $idJawaban->first())
+                    ->update([
+                        'jawaban' => $idJawaban->last(),
+                    ]);
+                }
+            }
+        }
+        $oldAnswers = answer::where([
+                        ['user_id', '=', $id],
+                        ['exam_id', '=', $data],
+                        ['jawaban', '!=', '']
+                    ])->get();
+        $answers = json_encode($oldAnswers);
+                    // dd($oldAnswers);
+        for ($i = 1; $i <= $ujian->soal; $i++) {           
+            $sudah[] = $_COOKIE['jawaban'.$i]??null;
         }
 
         for ($i = ($ujian->soal)-1; $i >= 0 ; $i--) {
@@ -192,7 +168,7 @@ class ExamController extends Controller
             return view('user.quiziz', compact('soal', 'ujian', 'time', 'soall'));
         }
         // endquiziz
-        return view('user.exam', compact('soal', 'ujian', 'time', 'soall'));
+        return view('user.exam', compact('soal', 'ujian', 'time', 'soall', 'answers'));
     }
 
     public function preShow($id, request $request)
@@ -201,72 +177,54 @@ class ExamController extends Controller
         $ujian = exam::find($id);
         $soall = question::where('exam_id', $id)->inRandomOrder($idd)->get();
         $soal = [];
+        $data = [];
+        // $last = [];
         // format waktu
         $waktuUjian = strtotime($ujian->tanggal);
-        foreach ($soall as $a) {
-            $soal[] = $a;
-        }
-        $last = [];
         $jenis = explode('_', $ujian->nama);
         
+        foreach ($soall as $a) {
+            $soal[] = $a; 
+            $data[] = ['user_id'=>$idd, 'exam_id'=> $id, 'question_id'=>$a->id];
+        }
         // quiziz
         if (last($jenis) == 'quiziz' ) {
             $last = ['id' => session('nomor'.session('last.nomor').'.userid'), 'nomor' => session('last.nomor')]; 
             // kalau keluar
-        if ($request->cookie('time')) {
-            $id = $last['id']??$soal[0]->id;
-            $nomor = $last['nomor']??1;
+            if ($request->cookie('time')) {
+                $id = $last['id']??$soal[0]->id;
+                $nomor = $last['nomor']??1;
             return view('user.preexam', compact('soal', 'ujian', 'id', 'nomor'));
         } else {
             Cookie::queue(cookie::make('time', $waktuUjian, 60*24));
         }
         // endkalau keluar
-
             return view('user.preexam', compact('soal', 'ujian'));
         }
         // endquiziz
 
         // normal
         if ($request->cookie('time')) {
-           $id = $last['id']??$soal[0]->id;
-            $nomor = $last['nomor']??1;
-            return view('user.preexam', compact('soal', 'ujian', 'id', 'nomor'));
+           $id = $soal[0]->id;
+            return view('user.preexam', compact('soal', 'ujian', 'id'));
         } else {
             Cookie::queue(cookie::make('time', $waktuUjian, 60*24));
+            answer::insert($data);
         }
 
         return view('user.preexam', compact('soal', 'ujian'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

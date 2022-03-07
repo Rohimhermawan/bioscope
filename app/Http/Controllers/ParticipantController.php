@@ -9,71 +9,31 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ParticipantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    
     public function index()
     {
-        $DATA = controller::find(4)->nilai;
-        $participants = [];
-        $nomor = 0;
-        $id = [];
-        $pembayaran = [];
-        $user = user::where([
-            ['is_admin', '=', $DATA],
-            ['pembayaran', '=', 'Sudah Bayar'],
-            ])->orWhere([
-                ['is_admin', '=', $DATA],
-            ['pembayaran', '=', 'Lolos'],
+    $bayar['bayar'] = [controller::find(8)->nilai];
+    $users = user::filter($bayar)->with('participant')->get();
+        return view('admin.peserta.data-peserta', compact('users'));
+    }
+        
+    public function bayar()
+    {
+        $bayar = user::where([
+            ['is_admin', '=', controller::find(8)->nilai]
             ])->get();
-            foreach ($user as $s) {
-                $id[] = $s->id;
-                $pembayaran[$nomor] = $s->pembayaran;
-                settype($pembayaran[$nomor], "string"); 
-                $nomor++;
-                $participants[] = $s->participant->first();
-            }
-            // dd($user, $participants);
-            return view('admin.peserta.data-peserta', compact('participants', 'id', 'pembayaran'));
-        }
+        return view('admin.peserta.bayar-peserta', compact('bayar'));
+    }
         
-        public function bayar()
-        {
-            $nomor = 0;
-            $nomor = 0;
-            $id = [];
-            $pembayaran = [];
-            $bayar = user::where([
-                ['is_admin', '=', controller::find(4)->nilai]
-                ])->get();
-            foreach ($bayar as $s) {
-                $id[] = $s->id;
-                $pembayaran[$nomor] = $s->pembayaran;
-                settype($pembayaran[$nomor], "string"); 
-                $nomor++;
-                $participants[] = $s->participant->first();
-            }
-            return view('admin.peserta.bayar-peserta', compact('bayar', 'id', 'pembayaran'));
-        }
-        
-        public function pembayaran()
+    public function pembayaran()
     {
         $user = user::find(auth::user()->id);
         $tanggal = controller::find(9)->nilai;
         return view('user.pembayaran', compact('user', 'tanggal'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function data(request $request, $id)
     {
@@ -101,69 +61,69 @@ class ParticipantController extends Controller
         // gambar1
         $filenameWithExt1 = $request->file('foto1')->getClientOriginalName();
             //Get just filename
-        $filename1 = pathinfo($filenameWithExt1, PATHINFO_FILENAME);
+        $filename1 = $request->nama1;
             // Get just ext
         $extension1 = $request->file('foto1')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore1 = $filename1.'_'.time().'.'.$extension1;
             // // Upload Image
-        $path1 = $request->file('foto1')->storeAs('public/foto', $fileNameToStore1, 'local');
+        $path1 = $request->file('foto1')->storeAs('public/identitas/foto', $fileNameToStore1, 'local');
 
             
         $filenameWithExt2 = $request->file('kartu1')->getClientOriginalName();
             //Get just filename
-        $filename2 = pathinfo($filenameWithExt2, PATHINFO_FILENAME);
+        $filename2 = $request->nama1;
             // Get just ext
         $extension2 = $request->file('kartu1')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore2 = $filename2.'_'.time().'.'.$extension2;
             // // Upload Image
-        $path2 = $request->file('kartu1')->storeAs('public/kartu', $fileNameToStore2, 'local');
+        $path2 = $request->file('kartu1')->storeAs('public/identitas/kartu', $fileNameToStore2, 'local');
         
         if ($request->file('foto2')) {
         // gambar2
         $filenameWithExt3 = $request->file('foto2')->getClientOriginalName();
             //Get just filename
-        $filename3 = pathinfo($filenameWithExt3, PATHINFO_FILENAME);
+        $filename3 = $request->nama2;
             // Get just ext
         $extension3 = $request->file('foto2')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore3 = $filename3.'_'.time().'.'.$extension3;
             // // Upload Image
-        $path3 = $request->file('foto2')->storeAs('public/foto', $fileNameToStore3, 'local');
+        $path3 = $request->file('foto2')->storeAs('public/identitas/foto', $fileNameToStore3, 'local');
 
         $filenameWithExt4 = $request->file('kartu2')->getClientOriginalName();
             //Get just filename
-        $filename4 = pathinfo($filenameWithExt4, PATHINFO_FILENAME);
+        $filename4 = $request->nama2;
             // Get just ext
         $extension4 = $request->file('kartu2')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore4 = $filename4.'_'.time().'.'.$extension4;
             // // Upload Image
-        $path4 = $request->file('kartu2')->storeAs('public/kartu', $fileNameToStore4, 'local');
+        $path4 = $request->file('kartu2')->storeAs('public/identitas/kartu', $fileNameToStore4, 'local');
         }
 
         if ($request->file('foto3')) {
         // gambar3
         $filenameWithExt5 = $request->file('foto3')->getClientOriginalName();
             //Get just filename
-        $filename5 = pathinfo($filenameWithExt5, PATHINFO_FILENAME);
+        $filename5 = $request->nama3;
             // Get just ext
         $extension5 = $request->file('foto3')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore5 = $filename5.'_'.time().'.'.$extension5;
             // // Upload Image
-        $path5 = $request->file('foto3')->storeAs('public/foto', $fileNameToStore5, 'local');
+        $path5 = $request->file('foto3')->storeAs('public/identitas/foto', $fileNameToStore5, 'local');
 
         $filenameWithExt6 = $request->file('kartu3')->getClientOriginalName();
             //Get just filename
-        $filename6 = pathinfo($filenameWithExt6, PATHINFO_FILENAME);
+        $filename6 = $request->nama3;
             // Get just ext
         $extension6 = $request->file('kartu3')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore6 = $filename6.'_'.time().'.'.$extension6;
             // // Upload Image
-        $path6 = $request->file('kartu3')->storeAs('public/kartu', $fileNameToStore6, 'local');
+        $path6 = $request->file('kartu3')->storeAs('public/identitas/kartu', $fileNameToStore6, 'local');
         }
 
         $fileNameToStore1 = isset($fileNameToStore1) ? $fileNameToStore1 : ''; //add a default value here
@@ -205,31 +165,21 @@ class ParticipantController extends Controller
             ]);
 
         $user = user::find(auth::user()->id)->participant[0];
-        return view('user.biodata', compact('user'));
+        return redirect('home/identitas-peserta');
 
     }
 
     public function bukti()
     {
-        $user = user::where('pembayaran', 'Menunggu Konfirmasi')->get();
+        $user = user::where('pembayaran', 'Menunggu Konfirmasi')->with('participant')->get();
         return view('admin.peserta.bukti', compact('user'));
     }
-    /**
-     * Show the form for creating a new resource0
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $participant)
     {
         $request->validate([
@@ -274,28 +224,15 @@ class ParticipantController extends Controller
         ]);
             return redirect('home/pembayaran');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Participant  $participant
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show(Participant $id)
     {
-        $participant = participant::find($id);
-        // dd($participant);
+        $participant = $id;
         return view('user.editbiodata', compact('participant'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Participant  $participant
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(request $request, $id)
+    public function edit(request $request, Participant $id)
     {
-        $participant = participant::find($id);
         $request->validate([
             'nama1' => 'required',
             'alamat1' => 'required',
@@ -316,86 +253,94 @@ class ParticipantController extends Controller
             'kartu3' => 'max:1024',
         ]);
         if ($request->file('foto1')) {
-            
+        storage::disk('public')->delete('identitas/foto/'.$id->foto1);    
         // gambar1
         $filenameWithExt1 = $request->file('foto1')->getClientOriginalName();
             //Get just filename
-        $filename1 = pathinfo($filenameWithExt1, PATHINFO_FILENAME);
+        $filename1 = $request->nama1;
             // Get just ext
         $extension1 = $request->file('foto1')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore1 = $filename1.'_'.time().'.'.$extension1;
             // // Upload Image
-        $path1 = $request->file('foto1')->storeAs('public/foto', $fileNameToStore1, 'local');
+        $path1 = $request->file('foto1')->storeAs('public/identitas/foto', $fileNameToStore1, 'local');
         }
 
         if ($request->file('kartu1')) {
-            
+        storage::disk('public')->delete('identitas/kartu/'.$id->kartu1);    
         $filenameWithExt2 = $request->file('kartu1')->getClientOriginalName();
             //Get just filename
-        $filename2 = pathinfo($filenameWithExt2, PATHINFO_FILENAME);
+        $filename2 = $request->nama1;
             // Get just ext
         $extension2 = $request->file('kartu1')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore2 = $filename2.'_'.time().'.'.$extension2;
             // // Upload Image
-        $path2 = $request->file('kartu1')->storeAs('public/kartu', $fileNameToStore2, 'local');
+        $path2 = $request->file('kartu1')->storeAs('public/identitas/kartu', $fileNameToStore2, 'local');
         
         }
         if ($request->file('foto2')) {
+        storage::disk('public')->delete('identitas/foto/'.$id->foto2);
         // gambar2
         $filenameWithExt3 = $request->file('foto2')->getClientOriginalName();
             //Get just filename
-        $filename3 = pathinfo($filenameWithExt3, PATHINFO_FILENAME);
+        $filename3 = $request->nama2;
             // Get just ext
         $extension3 = $request->file('foto2')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore3 = $filename3.'_'.time().'.'.$extension3;
             // // Upload Image
-        $path3 = $request->file('foto2')->storeAs('public/foto', $fileNameToStore3, 'local');
+        $path3 = $request->file('foto2')->storeAs('public/identitas/foto', $fileNameToStore3, 'local');
+        }
 
+        if ($request->file('kartu2')) {
+        storage::disk('public')->delete('identitas/kartu/'.$id->kartu2);
         $filenameWithExt4 = $request->file('kartu2')->getClientOriginalName();
             //Get just filename
-        $filename4 = pathinfo($filenameWithExt4, PATHINFO_FILENAME);
+        $filename4 = $request->nama2;
             // Get just ext
         $extension4 = $request->file('kartu2')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore4 = $filename4.'_'.time().'.'.$extension4;
             // // Upload Image
-        $path4 = $request->file('kartu2')->storeAs('public/kartu', $fileNameToStore4, 'local');
+        $path4 = $request->file('kartu2')->storeAs('public/identitas/kartu', $fileNameToStore4, 'local');
         }
 
         if ($request->file('foto3')) {
+        storage::disk('public')->delete('identitas/foto/'.$id->foto3);
         // gambar3
         $filenameWithExt5 = $request->file('foto3')->getClientOriginalName();
             //Get just filename
-        $filename5 = pathinfo($filenameWithExt5, PATHINFO_FILENAME);
+        $filename5 = $request->nama3;
             // Get just ext
         $extension5 = $request->file('foto3')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore5 = $filename5.'_'.time().'.'.$extension5;
             // // Upload Image
-        $path5 = $request->file('foto3')->storeAs('public/foto', $fileNameToStore5, 'local');
+        $path5 = $request->file('foto3')->storeAs('public/identitas/foto', $fileNameToStore5, 'local');
+        }
 
+        if ($request->file('kartu3')) {
+        storage::disk('public')->delete('identitas/kartu/'.$id->kartu3);
         $filenameWithExt6 = $request->file('kartu3')->getClientOriginalName();
             //Get just filename
-        $filename6 = pathinfo($filenameWithExt6, PATHINFO_FILENAME);
+        $filename6 = $request->nama3;
             // Get just ext
         $extension6 = $request->file('kartu3')->getClientOriginalExtension();
             // Filename to store
         $fileNameToStore6 = $filename6.'_'.time().'.'.$extension6;
             // // Upload Image
-        $path6 = $request->file('kartu3')->storeAs('public/kartu', $fileNameToStore6, 'local');
+        $path6 = $request->file('kartu3')->storeAs('public/identitas/kartu', $fileNameToStore6, 'local');
         }
 
-        $fileNameToStore1 = isset($fileNameToStore1) ? $fileNameToStore1 : $participant->foto1; //add a default value here
-        $fileNameToStore2 = isset($fileNameToStore2) ? $fileNameToStore2 : $participant->kartu1; //add a default value here
-        $fileNameToStore3 = isset($fileNameToStore3) ? $fileNameToStore3 : $participant->foto2; //add a default value here
-        $fileNameToStore4 = isset($fileNameToStore4) ? $fileNameToStore4 : $participant->kartu2; //add a default value here
-        $fileNameToStore5 = isset($fileNameToStore5) ? $fileNameToStore5 : $participant->foto3; //add a default value here
-        $fileNameToStore6 = isset($fileNameToStore6) ? $fileNameToStore6 : $participant->kartu3; //add a default value here
+        $fileNameToStore1 = isset($fileNameToStore1) ? $fileNameToStore1 : $id->foto1; //add a default value here
+        $fileNameToStore2 = isset($fileNameToStore2) ? $fileNameToStore2 : $id->kartu1; //add a default value here
+        $fileNameToStore3 = isset($fileNameToStore3) ? $fileNameToStore3 : $id->foto2; //add a default value here
+        $fileNameToStore4 = isset($fileNameToStore4) ? $fileNameToStore4 : $id->kartu2; //add a default value here
+        $fileNameToStore5 = isset($fileNameToStore5) ? $fileNameToStore5 : $id->foto3; //add a default value here
+        $fileNameToStore6 = isset($fileNameToStore6) ? $fileNameToStore6 : $id->kartu3; //add a default value here
 
-        participant::where('id', $id)
+        participant::where('id', $id->id)
         ->update([
             'nama1' => $request->nama1,
             'alamat1' => $request->alamat1,
@@ -426,8 +371,15 @@ class ParticipantController extends Controller
             'domisili3' => $request->domisili3,
             ]);
 
-        $user = user::find(auth::user()->id)->participant[0];
-        return view('user.biodata', compact('user'));
+        return redirect('home/identitas-peserta');
 
     }
+
+    public function fetch()
+    {
+        $bayar['bayar'] = [controller::find(8)->nilai];
+        $users = user::filter($bayar)->get();
+        return response()->json($users);
+    }
+
 }

@@ -10,12 +10,12 @@
 	<p>
   </div>	
   <div class="col-md-11" id="form" style="margin: auto;">
-  		<form action="{{url('home/check/'.$user->participant[0]->id)}}" method="POST" enctype="multipart/form-data">
+  		<form action="{{url('home/check/'.$user->first()->participant->id)}}" method="POST" enctype="multipart/form-data">
   		@csrf
   			<div class="form-group" >
-                <ul>Cabang : {{$user->participant[0]->cabang}}</ul>
-				<ul>Sekolah : {{$user->participant[0]->sekolah}}</ul>
-				<ul>Guru pembimbing : {{$user->participant[0]->pembimbing}}</ul>
+                <ul>Cabang : {{$user->first()->participant->cabang}}</ul>
+				<ul>Sekolah : {{$user->first()->participant->sekolah}}</ul>
+				<ul>Guru pembimbing : {{$user->first()->participant->pembimbing}}</ul>
              </div>
   			 <div class="row justify-content-center">
 	  			<div class="col-md-4 border-left">
@@ -24,7 +24,7 @@
 						@error('nama1')
 						<div class="alert alert-danger">{{ $message }}</div>
 						@enderror
-	                    <input type="text" class="form-control @error('nama1') is-invalid @enderror" name="nama1" placeholder="Masukkan Nama Lengkap" id="nama1" value="{{$user->name}}">
+	                    <input type="text" class="form-control @error('nama1') is-invalid @enderror" name="nama1" placeholder="Masukkan Nama Lengkap" id="nama1" value="{{old('nama1',$user->first()->name)}}">
 	                </div>
 	                <div class="form-group">
 	                    <label for="kelas1">Kelas</label>

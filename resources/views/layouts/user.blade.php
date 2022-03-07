@@ -51,7 +51,7 @@ $user = auth::user();
 }
   </style>
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style=" background-image: url('{{asset('files/user/bg-user.png')}}'); background-size:cover"onload="time()">
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style=" background-image: url('{{asset('files/user/bg-user.png')}}'); background-size:cover">
     <nav class="navbar navbar-expand-lg navbar-light bg-light text-dark fixed-top" style="background-color: #555555 ">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Bioscope</a>
@@ -126,12 +126,12 @@ $user = auth::user();
     var identitas = document.getElementById('identitas');
     var identitas1 = document.getElementById('identitas1');
     var sertif = document.getElementById('sertif');
-    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{isset($user->participant[0]->domisili1)}}' == '') {
+    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{$user->participant->first()->domisili1}}' == '') {
       identitas.classList.remove("disabled");
       identitas.removeAttribute("hidden");
     } 
     
-    if ('{{isset($user->participant[0]->domisili1)}}') {
+    if ('{{isset($user->participant->first()->domisili1)}}') {
       identitas1.classList.remove("disabled");
       identitas1.removeAttribute("hidden");
       if ( "{{$user->participant->first()->cabang??'--'}}" == 'Olimpiade') {
@@ -139,7 +139,7 @@ $user = auth::user();
         test.classList.remove("disabled");
           test.removeAttribute("hidden");
       }
-      if ("{{$user->participant[0]->cabang??'--'}}" !== 'Olimpiade') {
+      if ("{{$user->participant->first()->cabang??'--'}}" !== 'Olimpiade') {
         var karya = document.getElementById('karya');
           karya.classList.remove("disabled");
           karya.removeAttribute("hidden");

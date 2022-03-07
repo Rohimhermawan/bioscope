@@ -6,15 +6,23 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     protected $table = 'users';
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'is_admin',
+        'pembayaran'
+    ];
 
     public function participant()
     {
-        return $this->hasMany(participant::class);
+        return $this->hasOne(participant::class);
     }
     public function restrict()
     {
@@ -44,34 +52,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Poster::class);
     }
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'is_admin',
-        'pembayaran'
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    public function scopeFilter($query, array $filters) 
+    {
+        $query->when($filters['bayar']??false, function($query, $bayar) {
+            return $query->where([
+                            ['is_admin', '=', $bayar],
+                            ['pembayaran', '=', 'Sudah Bayar']])
+                    ->orWhere([
+                        ['is_admin', '=', $bayar],
+                        ['pembayaran', '=', 'Lolos']]);
+        });
+    }
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

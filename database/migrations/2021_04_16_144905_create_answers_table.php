@@ -18,8 +18,8 @@ class CreateAnswersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBiginteger('question_id');
             $table->unsignedBiginteger('exam_id');
-            $table->string('jawaban');
-            $table->string('hasil');
+            $table->string('jawaban')->nullable();
+            $table->string('hasil')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');

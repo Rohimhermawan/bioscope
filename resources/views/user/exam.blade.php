@@ -80,9 +80,7 @@ $data = $d[0];
 						@foreach($soall as $s)
 						<form class="d-inline" action="{{url('exam/'.$s->exam_id.'?nomer='.$loop->iteration.'&id='.$s->id)}}" method="POST">
 							@csrf
-							<input type="input" name="nomer" value="{{$loop->iteration}}" hidden>
-							<input type="input" name="id" value="{{$s->id}}" hidden>
-						<button type="input" class="badge btn" id="soal{{$loop->iteration}}" style="border-radius: 50%; background-color: #ece6cd; color: black;" value="{{$loop->iteration}}">{{$loop->iteration}}</button>
+						<button type="input" class="badge btn" id="soal{{$s->id}}" style="border-radius: 50%; background-color: #ece6cd; color: black;">{{$loop->iteration}}</button>
 						</form>
 						@endforeach
 					</div>
@@ -178,9 +176,9 @@ $data = $d[0];
 </script>
   <script type="text/javascript">
     function time() {
-    var times = <?php echo $time; ?>*1000;
+    var times = {{$time}}*1000;
     // Set the date we're counting down to
-	var countDownDate = times + 1000*60*<?php echo $ujian->waktu; ?>;
+	var countDownDate = times + 1000*60*{{$ujian->waktu}}
 
 	// Update the count down every 1 second
 	var x = setInterval(function() {
@@ -212,76 +210,36 @@ $data = $d[0];
 
 // If the count down is finished by admin, write some text
 if ("{{$ujian->keterangan}}" == "Tidak Aktif") {
-    document.getElementById('submit').click();
+    document.getElementById("submit").click();
   }
 // nomer
-<?php 
-$n = 'nomor'; 
-for ($i = 1; $i <= $ujian->soal ; $i++) {
-	$z[] = session('nomor'.$i);
-}
-foreach ($ujian as $u) {
-	
-}
-for ($i = 1; $i <= $ujian->soal; $i++) {
-	$userid = $_COOKIE['userid'.$i]??$user->id;
-	$examid = $_COOKIE['examid'.$i]??$soal->exam_id;
-	$questionid = $_COOKIE['questionid'.$i]??$soal->id;
-	$jawaban = $_COOKIE['jawaban'.$i]??null;
-	$data = [
-	'userid' => $userid,
-	'examid' => $examid,
-	'questionid' => $questionid,
-	'jawaban' => $jawaban,
-	];
-session([
-	'nomor'.$i => $data
-	]);  
-}
-
-function hapus($nama)
-{           
-	session()->put($nama, null); 
-}
-?>
+@php function hapus($nama){session()->put($nama, null);}@endphp
 function getCookie(name) {
-    // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(";");
-    
-    // Loop through the array elements
     for(var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
-        
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
         if(name == cookiePair[0].trim()) {
-            // Decode the cookie value and return
             return decodeURIComponent(cookiePair[1]);
         }
     }
-    
-    // Return null if not found
     return null;
 }
-for (var i = 1; i <= {{$ujian->soal}}; i++) {	
-
-console.log(getCookie('jawaban'+[i])); 
-if (typeof getCookie('jawaban'+[i]) === 'string' && getCookie('jawaban'+[i]) !== '') {
-	const sudah = document.getElementById('soal'+i);
-	sudah.style.backgroundColor= '#3a3f58';
-	sudah.style.color= 'white';
-}
-}
-
-if ("{{$_GET['nomer']}}") {
-	document.getElementById("{{'soal'.$_GET['nomer']}}").style.backgroundColor= '#f9ac67';
+let dataJson = JSON.parse('{!!$answers!!}');
+let Json = {};
+dataJson.forEach(e => {
+Json[e.question_id] = e;
+		const sudah = document.getElementById('soal'+e.question_id);
+		sudah.style.backgroundColor= '#3a3f58';
+		sudah.style.color= 'white';
+});
+if ("{{$_GET['id']}}") {
+	document.getElementById("{{'soal'.$_GET['id']}}").style.backgroundColor= '#f9ac67';
 };
 
 let prev = document.getElementById("prev{{$_GET['nomer']-1}}");
 let next = document.getElementById("next{{$_GET['nomer']+1}}");
 prev.addEventListener("click", function (e) { split = e.target.className.split(" ");document.getElementById(split[3]).click();})
 next.addEventListener("click", function (e) { split = e.target.className.split(" ");;document.getElementById(split[3]).click();})
-
 if ("{{$_GET['nomer']}}" == 1) {
 	prev.classList.toggle("d-none");
 };
@@ -295,42 +253,36 @@ if ("{{$_GET['nomer']}}" == "{{$ujian->soal}}") {
   var waktu = now.getTime();
   var expireTime = waktu + 1000*60*60*24;
   now.setTime(expireTime);
-document.querySelector('.nomor').addEventListener('click', function (e) {
-var userid = document.getElementById('user_id').value;
-var examid = document.getElementById('exam_id').value;
-var questionid = document.getElementById('question_id').value;
-	document.cookie = 'userid{{$_GET["nomer"]}} = ' + userid +'; expires = ' + now.toUTCString();
-	document.cookie = 'examid{{$_GET["nomer"]}} = ' + examid +'; expires = ' + now.toUTCString();
-	document.cookie = 'questionid{{$_GET["nomer"]}} = ' + questionid +'; expires = ' + now.toUTCString();
-}) 
+	document.cookie = 'prev = {{$_GET["nomer"]}}; expires = ' + now.toUTCString();
+	document.cookie = 'prevId = {{$_GET["id"]}}; expires = ' + now.toUTCString();
 var kunci = document.getElementsByName('pilihan');
 for (var i = 0; i < kunci.length; i++) {
 	kunci[i].addEventListener('click', function (e) {
 	var jawaban = e.target.value;
-	document.cookie = 'jawaban{{$_GET["nomer"]}} = ' + jawaban +'; expires = ' + now.toUTCString();});
+	document.cookie = 'jawaban = {{$_GET["id"]}},' + jawaban +'; expires = ' + now.toUTCString();
+	});
 }
 // hapus jawaban
 document.getElementById('hapus').addEventListener('click', function () {
-	document.cookie = 'jawaban{{$_GET["nomer"]}} =; expires = ' + now.toUTCString();
-	<?php hapus("nomor".$_GET['nomer'].".jawaban"); ?>
-	document.getElementById("{{'soal'.$_GET['nomer']}}").click();
+	document.cookie = 'jawaban = {{$_GET["id"]}},; expires = ' + now.toUTCString();
+	document.getElementById("{{'soal'.$_GET['id']}}").click()
 });
 // ceklis jawaban
-if ('{{$_COOKIE["jawaban".$_GET["nomer"]]??null}}' == 'A') {
+	if (typeof Json[@php echo $_GET['id'] @endphp].jawaban !== 'undefined' && Json[@php echo $_GET['id'] @endphp].jawaban == 'A') {
 	document.getElementById('pilihan1').setAttribute('checked', '');
-}
-if ('{{$_COOKIE["jawaban".$_GET["nomer"]]??null}}' == 'B') {
-	document.getElementById('pilihan2').setAttribute('checked', '');
-}
-if ('{{$_COOKIE["jawaban".$_GET["nomer"]]??null}}' == 'C') {
-	document.getElementById('pilihan3').setAttribute('checked', '');
-}
-if ('{{$_COOKIE["jawaban".$_GET["nomer"]]??null}}' == 'D') {
-	document.getElementById('pilihan4').setAttribute('checked', '');
-}
-if ('{{$_COOKIE["jawaban".$_GET["nomer"]]??null}}' == 'E') {
-	document.getElementById('pilihan5').setAttribute('checked', '');
-}
+	}
+	if (typeof Json[@php echo $_GET['id'] @endphp].jawaban !== 'undefined' && Json[@php echo $_GET['id'] @endphp].jawaban == 'B') {
+		document.getElementById('pilihan2').setAttribute('checked', '');
+	}
+	if (typeof Json[@php echo $_GET['id'] @endphp].jawaban !== 'undefined' && Json[@php echo $_GET['id'] @endphp].jawaban == 'C') {
+		document.getElementById('pilihan3').setAttribute('checked', '');
+	}
+	if (typeof Json[@php echo $_GET['id'] @endphp].jawaban !== 'undefined' && Json[@php echo $_GET['id'] @endphp].jawaban == 'D') {
+		document.getElementById('pilihan4').setAttribute('checked', '');
+	}
+	if (typeof Json[@php echo $_GET['id'] @endphp].jawaban !== 'undefined' && Json[@php echo $_GET['id'] @endphp].jawaban == 'E') {
+		document.getElementById('pilihan5').setAttribute('checked', '');
+	}
 // soal yang sedang dikerjakan
 const url = window.location.search;
 const params = new URLSearchParams(url);

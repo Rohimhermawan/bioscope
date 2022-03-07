@@ -1,7 +1,6 @@
 @extends('layouts.user')
 @section('content')
 @foreach($test as $p)
-// modal{{$loop->iteration}}
 <div class="modal fade" id="pop{{$p->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -16,7 +15,7 @@
   </div>
 </div>
 @endforeach
-<div class="container bg-white py-4 mb-5" style="border-radius: 3px; margin-top: 100px; margin-bottom:140px;">
+<div class="container bg-white py-4" style="border-radius: 3px; margin-top: 100px; margin-bottom:171px;">
 	<div class="table-responsive">
 		<table class="table">
 			<thead>
@@ -47,24 +46,24 @@
 								var btn = document.getElementById('button{{$loop->iteration}}');
 								var btn1 = document.getElementById('tombol{{$loop->iteration}}');
 								var btn2 = document.getElementById('tombol1{{$loop->iteration}}');
-								if ({{strtotime($p->tanggal)}} > {{strtotime(now())}}) {
+								if ({{strtotime($p->tanggal)-60*60*7}} > {{strtotime(now())}}) {
 									btn.setAttribute('hidden', '');
-										btn2.removeAttribute('hidden');
-										btn2.innerHTML = 'Anda Tidak Diizinkan';
-								} if ({{$user->answer->where('exam_id', $p->id)->count()}}>0) {
+									btn2.removeAttribute('hidden');
+									btn2.innerHTML = 'Anda Tidak Diizinkan';
+								} if ("{{$user->answer->where('exam_id',$p->id)->first()->hasil}}" != '') {
 									btn.setAttribute('hidden', '');
 									btn1.removeAttribute('hidden');
 									btn1.innerHTML = 'Sudah Dikerjakan';
 								} if ( '{{last(explode('_', $p->nama))}}' == 'quiziz') {
-									if ( '{{$user->pembayaran}}' !== 'Lolos' ) {
-										btn.setAttribute('hidden', '');
-										btn2.removeAttribute('hidden');
-										btn2.innerHTML = 'Anda Tidak Diizinkan';
+										if ( '{{$user->pembayaran}}' !== 'Lolos' ) {
+											btn.setAttribute('hidden', '');
+											btn2.removeAttribute('hidden');
+											btn2.innerHTML = 'Anda Tidak Diizinkan';
+										} else {
+											btn.innerHTML = 'Kerjakan';
+										}
 									} else {
 										btn.innerHTML = 'Kerjakan';
-									}
-								} else {
-									btn.innerHTML = 'Kerjakan';
 								}
 							</script>
 						</form>
