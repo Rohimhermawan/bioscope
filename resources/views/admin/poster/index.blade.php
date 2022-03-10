@@ -41,7 +41,7 @@
                                             <th>Nama</th>
                                             <th>Poster</th>
                                             <th>Sekolah</th>
-                                            <th>Action</th>                      
+                                            <th>Action</th>                                            
                                     </tfoot>
                                     <tbody>
                                         @foreach ($data as $p)

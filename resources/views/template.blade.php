@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-<img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/foto/'.$data->foto1)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
+<img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/identitas/foto/'.$data->foto1)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
 <table style="margin-top: 62%; margin-left:30%; color:#032c54;">
     <tr>
         <td>Cabang</td>
@@ -57,7 +57,7 @@
     </table>
     @if ($data->nama2)
     <div class="page-break"></div>
-    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/foto/'.$data->foto2)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/identitas/foto/'.$data->foto2)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
         <table style="position:relative; top: 62%; margin-left:30%; color:#032c54;">
     <tr>
         <td>Cabang</td>
@@ -91,7 +91,7 @@
     @endif
     @if ($data->nama3)
     <div class="page-break"></div>
-    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/foto/'.$data->foto3)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('storage/identitas/foto/'.$data->foto3)))}}" alt="Pas Foto Peserta" style="width:150px; height:200px; position:absolute; top:35%; left:37%; border:3px solid black; box-shadow:0 0 7px black;">
     <table style="position:relative; top: 62%; margin-left:30%; color:#032c54;">
     <tr>
         <td>Cabang</td>

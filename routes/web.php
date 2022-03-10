@@ -17,7 +17,7 @@ use App\Models\Controller;
 */
 
 Route::get('/', function() { $data = controller::whereIn('id', [1,2,3,4,5,6,7])->get(); return view('home', compact('data'));});
-Route::get('/webinar', function() {$data = controller::whereIn('id', [11,12,13])->get(); return view('webinar1', compact('data'));});
+Route::get('/webinar', function() {$data = controller::whereIn('id', [16,17,18,19,20,21,22,23,24,25,27,26])->get();return view('webinar1', compact('data'));});
 Route::get('/login', [App\Http\Controllers\AuthAdminController::class, 'admin']);
 Route::post('/check', [App\Http\Controllers\AuthAdminController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\AuthAdminController::class, 'logout']);
@@ -42,24 +42,26 @@ Route::get('/admin/certificate/create2', [App\Http\Controllers\DashboardControll
 
 	// participant
 	Route::get('/fetch/participant', [App\Http\Controllers\ParticipantController::class, 'fetch']);
-Route::get('/participants', [App\Http\Controllers\ParticipantController::class, 'index']);
-Route::get('/participants/bayar', [App\Http\Controllers\ParticipantController::class, 'bayar']);
-Route::get('/participants/bukti-pembayaran', [App\Http\Controllers\ParticipantController::class, 'bukti']);
-Route::get('/participants/{participant}', [App\Http\Controllers\ParticipantController::class, 'show']);
-Route::post('/confirm/{id}', [App\Http\Controllers\UserController::class, 'confirm']);
-Route::post('/pass/{id}', [App\Http\Controllers\UserController::class, 'pass']);
-Route::post('/reject/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
+	Route::get('/participants', [App\Http\Controllers\ParticipantController::class, 'index']);
+	Route::get('/participants/bayar', [App\Http\Controllers\ParticipantController::class, 'bayar']);
+	Route::get('/participants/bukti-pembayaran', [App\Http\Controllers\ParticipantController::class, 'bukti']);
+	Route::get('/participants/{participant}', [App\Http\Controllers\ParticipantController::class, 'show']);
+	Route::post('/confirm/{id}', [App\Http\Controllers\UserController::class, 'confirm']);
+	Route::post('/pass/{id}', [App\Http\Controllers\UserController::class, 'pass']);
+	Route::post('/reject/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
 	
-// Poster
+	// Poster
 Route::get('/poster', [App\Http\Controllers\PosterController::class, 'indexA']);
 Route::get('/poster/hasil', [App\Http\Controllers\PosterController::class, 'indexB']);
 Route::get('/poster/create', [App\Http\Controllers\PosterController::class, 'create']);
+Route::get('/poster/trace/{id}', [App\Http\Controllers\PosterController::class, 'show']);
 Route::post('/poster/store', [App\Http\Controllers\PosterController::class, 'store']);
 Route::get('/poster/edit/{id}', [App\Http\Controllers\PosterController::class, 'edit']);
 Route::put('/poster/edit/{id}', [App\Http\Controllers\PosterController::class, 'update']);
 Route::delete('/poster/delete/{id}', [App\Http\Controllers\PosterController::class, 'destroy']);
+Route::get('/fetch/poster/{id}', [App\Http\Controllers\PosterController::class, 'fetch']);
 
-	// ujian
+// ujian
 Route::get('/test', [App\Http\Controllers\TestController::class, 'index']);
 Route::get('/test/active/{id}', [App\Http\Controllers\TestController::class, 'active']);
 Route::get('/test/create', [App\Http\Controllers\TestController::class, 'create']);
@@ -93,6 +95,7 @@ Route::get('/home/identitas-peserta', [App\Http\Controllers\UserController::clas
 Route::get('/home/pembayaran', [App\Http\Controllers\ParticipantController::class, 'pembayaran']);
 Route::get('/home/identitas/{id}', [App\Http\Controllers\ParticipantController::class, 'show']);
 Route::get('/home/kartu-peserta/{id}', [App\Http\Controllers\UserController::class, 'printCard']);
+Route::get('/home/sertifikat/{id}', [App\Http\Controllers\UserController::class, 'printCertificate']);
 Route::post('/home/check/{id}', [App\Http\Controllers\ParticipantController::class, 'data']);
 Route::post('/home/edit/{id}', [App\Http\Controllers\ParticipantController::class, 'edit']);
 Route::post('/home/{participant}', [App\Http\Controllers\ParticipantController::class, 'store']);

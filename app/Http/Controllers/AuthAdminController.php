@@ -23,7 +23,8 @@ class AuthAdminController extends Controller
     public function admin()
     {
         $data = controller::find(1);
-        if (auth::user()->is_admin??'4' == 3) {
+        $akses = controller::find(8);
+        if (auth::user()->is_admin??'4' == $akses->nilai) {
             return redirect('home/pembayaran');
         } else {
         return view('login', compact('data'));
@@ -45,11 +46,11 @@ class AuthAdminController extends Controller
                 } 
                 // panitia(2)/peserta(3) boleh masuk
                 else if(auth::user()->is_admin == controller::find(8)->nilai ) {
-                $userLogin = restrict::where('User_id', auth::user()->id)->first();
+                $userLogin = restrict::where('user_id', auth::user()->id)->first();
                 $jumlah = $userLogin->jumlah??null;
                     if ($jumlah == null) {
                         restrict::create([
-                            'User_id' => auth::user()->id,
+                            'user_id' => auth::user()->id,
                             'jumlah' => 1
                         ]);
                         $request->session()->regenerate();
@@ -57,7 +58,7 @@ class AuthAdminController extends Controller
                     }
                     else if ($jumlah >= 0 && $jumlah <=2 ) {
                             $jumlah += 1;
-                            restrict::where('User_id', auth::user()->id)
+                            restrict::where('user_id', auth::user()->id)
                             ->update([
                                 'jumlah' => $jumlah
                             ]);
@@ -81,8 +82,8 @@ class AuthAdminController extends Controller
     public function logout()
     {
         if (auth::user()->is_admin !== 1) {
-            $userLogin = restrict::where('User_id', auth::user()->id)->first()->jumlah;
-            restrict::where('User_id', auth::user()->id)
+            $userLogin = restrict::where('user_id', auth::user()->id)->first()->jumlah;
+            restrict::where('user_id', auth::user()->id)
                         ->update([
                             'jumlah' => $userLogin-1
                         ]);

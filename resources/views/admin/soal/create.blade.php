@@ -23,48 +23,48 @@
                                         @error('gambar')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" placeholder="masukkan gambar ujian" id="gambar"value="{{old('gambar')}}">
+                                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" placeholder="masukkan gambar ujian" id="gambar">
                                     </div>
                                     <div class="form-group">
                                         <label for="soal">Soal</label>
                                         @error('soal')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="number" class="form-control @error('soal') is-invalid @enderror" name="soal" id="soal" value="{{old('soal')}}">
-                                    </div></textarea>
+                                        <textarea type="number" class="form-control @error('soal') is-invalid @enderror" name="soal" id="soal" value="">{{old('soal')}}</textarea>
+                                    </div>
                                     <div class="form-group">
                                         <label for="pilihana">Pilihan A</label>
                                         @error('opsi_a')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="text" class="form-control @error('opsi_a') is-invalid @enderror" name="opsi_a" id="pilihana" value="{{old('opsi_a')}}"></textarea>
+                                        <textarea type="text" class="form-control @error('opsi_a') is-invalid @enderror" name="opsi_a" id="pilihana" value="">{{old('opsi_a')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihanb">Pilihan B</label>
                                         @error('opsi_b')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="text" class="form-control @error('opsi_b') is-invalid @enderror" name="opsi_b" id="pilihanb" value="{{old('opsi_b')}}"></textarea>
+                                        <textarea type="text" class="form-control @error('opsi_b') is-invalid @enderror" name="opsi_b" id="pilihanb" value="">{{old('opsi_b')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihanc">Pilihan C</label>
                                         @error('opsi_c')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="text" class="form-control @error('opsi_c') is-invalid @enderror" name="opsi_c" id="pilihanc" value="{{old('opsi_c')}}"></textarea>
+                                        <textarea type="text" class="form-control @error('opsi_c') is-invalid @enderror" name="opsi_c" id="pilihanc" value="">{{old('opsi_c')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihand">Pilihan D</label>
                                         @error('opsi_d')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="text" class="form-control @error('opsi_d') is-invalid @enderror" name="opsi_d" id="pilihand" value="{{old('opsi_d')}}"></textarea>
-                                    </div class="form-group">
+                                        <textarea type="text" class="form-control @error('opsi_d') is-invalid @enderror" name="opsi_d" id="pilihand" value="">{{old('opsi_d')}}</textarea>
+                                    <div class="form-group">
                                         <label for="pilihane">Pilihan E</label>
                                         @error('opsi_e')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                        <textarea type="text" class="form-control @error('opsi_e') is-invalid @enderror" name="opsi_e" id="pilihane" value="{{old('opsi_e')}}"></textarea>
+                                        <textarea type="text" class="form-control @error('opsi_e') is-invalid @enderror" name="opsi_e" id="pilihane" value="">{{old('opsi_e')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="kunci">Kunci</label>

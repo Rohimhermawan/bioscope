@@ -30,7 +30,8 @@ class ParticipantController extends Controller
         
     public function pembayaran()
     {
-        $user = user::find(auth::user()->id);
+        $user = user::where('id', auth::user()->id)->with('restrict', 'participant')->first();
+        // dd(auth::user(), $user->participant->domisili1??'test');
         $tanggal = controller::find(9)->nilai;
         return view('user.pembayaran', compact('user', 'tanggal'));
     }
@@ -175,11 +176,6 @@ class ParticipantController extends Controller
         return view('admin.peserta.bukti', compact('user'));
     }
  
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request, $participant)
     {
         $request->validate([

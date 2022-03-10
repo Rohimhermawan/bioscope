@@ -14,4 +14,8 @@ class Poster extends Model
     {
     	return $this->belongsTo(User::class);
     }
+    public function trace() 
+    {
+    	return $this->hasMany(Trace::class);
+    }
 }

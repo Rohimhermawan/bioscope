@@ -26,28 +26,31 @@
                 <tbody>
                     @foreach ($data as $d)
                     <tr>
-                        <td>{{$d->id}}</td>
-                        <td>{{$d->Nama}}</td>
-                        <td>
-                            <div class="form-switch">
-                                <form method="POST" action="{{url('admin/controllers/'.$d->id)}}">
-                                @method('put')    
-                                @csrf
-                                @if ($d->type == 'Var')
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" value="{{$d->nilai}}" name="{{$d->id}}">
-                                    <button class="btn btn-success" type="submit" id="button-addon2">Submit</button>
-                                </div>
-                                @else
-                                    <button type="submit" class="btn p-3">
-                                        <span class="badge badge-info p-2">@if($d->nilai == 2) {{'Panitia'}} @elseif ($d->nilai == 3) {{'Peserta'}} @else {{$d->nilai}} @endif</span>
-                                    </button>
-                                @endif
-                                </form>
-                            </div>
-                        </td>
-                        <td>
-                        </td>
+                      <td>{{$d->id}}</td>
+                      <td>{{$d->Nama}}</td>
+                      <td>
+                          <div class="form-switch">
+                              <form method="POST" action="{{url('admin/controllers/'.$d->id)}}">
+                              @method('put')    
+                              @csrf
+                              @if ($d->type == 'Var')
+                              <div class="input-group mb-3">
+                                  <input type="text" class="form-control" value="{{$d->nilai}}" name="{{$d->id}}">
+                                  <button class="btn btn-success" type="submit" id="button-addon2">Submit</button>
+                              </div>
+                              @elseif($d->type == 'Text')
+                              <div class="form-group">
+                                  <textarea type="text" class="form-control" name="{{$d->id}}" id="{{$d->id}}">{{$d->nilai}}</textarea>
+                                  <button class="btn btn-success" type="submit" id="button-addon2">Submit</button>
+                              </div>
+                              @else
+                                  <button type="submit" class="btn p-3">
+                                      <span class="badge badge-info p-2">@if($d->nilai == 2) Panitia @elseif ($d->nilai == 3) Peserta @else {{$d->nilai}} @endif</span>
+                                  </button>
+                              @endif
+                              </form>
+                          </div>
+                      </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -90,4 +93,11 @@
     </div>
   </div>
 </div>
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+<script>
+    CKEDITOR.replace('21');
+    CKEDITOR.replace('24');
+    CKEDITOR.replace('27');
+    CKEDITOR.config.allowedContent = true;
+</script>
 @endsection

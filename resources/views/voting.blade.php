@@ -31,22 +31,23 @@
 <body style="overflow-x: hidden; background-color:lightgoldenrodyellow;">
 <section>
     <div class="container p-2">
-        <div class="row text-center">
-            <h1 class="fw-bolder">Public Poster</h1>
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        <h1 class="fw-bolder text-center">Public Poster</h1>
+        <div id="poster" hidden>
+            <div class="row text-center">
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                <div class="nama p-3">
+                    @foreach ($data as $d)
+                    <a id="{{$d->id}}" class="btn btn-warning col-md-2 px-2 mx-1">{{$d->user->name}}</a>
+                    @endforeach
+                </div>
             </div>
-            @endif
-            <div class="nama p-3">
+            <div class="row poster d-flex">
                 @foreach ($data as $d)
-                <a id="{{$d->id}}" class="btn btn-warning col-md-2 px-2 mx-1">{{$d->user->name}}</a>
-                @endforeach
-            </div>
-        </div>
-        <div class="row poster d-flex flex-row">
-            @foreach ($data as $d)
-            <div class="d-none col-md-6" id="p{{$d->id}}">
+                <div class="d-none col-md-6" id="p{{$d->id}}">
                         <img src="{{url('storage/poster/'.$d->poster)}}" class="img-fluid" alt="Poster">
                         <form action="{{url('vote/'.$d->id.'/'.$d->user_id)}}">
                             @csrf
@@ -61,6 +62,28 @@
                 @endforeach
             </div>
         </div>
+        <div id="data-diri">
+            <div class="row justify-content-center">
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                            @error('nama')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="masukkan nama lengkap kamu" id="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        @error('email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="tuliskan email kamu" id="email">
+                    </div>
+                    <button class="btn btn-primary mt-3" id="fakeButton">Submit</button>
+                    </div>
+                </div>
+        </div>
+    </div>
 </section>
 
 <footer class="p-2 text-white" style="background-color: rgb(89,89,89); margin-top:330px;">
@@ -103,7 +126,7 @@
         <div class="text-center">
         <p>
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://instagram.com/asinambu" target="_blank" class="link-light">Asinambu</a>
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fas fa-heart text-danger"></i> by <a href="https://instagram.com/asinambu" target="_blank" class="link-light">Asinambu</a>
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <hr class="bg-white">
         </p>
@@ -111,8 +134,29 @@
 </footer>
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
+        const fakeBtn = document.querySelector('#fakeButton');
+        const username = document.querySelector('#nama');
+        const email = document.querySelector('#email');
+        const dataDiri = document.querySelector('#data-diri');
+        const poster = document.querySelector('#poster');
+        if (getCookie('email')) {
+            dataDiri.setAttribute('hidden', "");
+            poster.removeAttribute('hidden');
+        }
+        fakeBtn.addEventListener('click', function(){
+            if (username.value && email.value) {
+                document.cookie = 'username = '+ username.value +'; expires = ' + now.toUTCString()+1000*60*24*50;
+                document.cookie = 'email = '+ username.value +'; expires = ' + now.toUTCString()+1000*60*24*50;
+                location.reload()
+            }
+
+        });
+
         gsap.from(".nama", {duration:1.5, opacity:0.7, y:-200, ease:"bounce"});
 
         const nama = document.querySelector(".nama");
@@ -163,11 +207,5 @@
             
         }
     </script>    
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>

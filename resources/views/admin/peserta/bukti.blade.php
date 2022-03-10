@@ -7,6 +7,11 @@
                         {{ session('delete') }}
                     </div>
                     @endif
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Upload Pembayaran</h1>
                     <!-- DataTales Example -->
@@ -82,7 +87,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img src="{{asset('storage/pembayaran/'.$p->participant[0]->updated_at->format('d-m-Y'). '/' .$p->participant[0]->bukti)}}" class="img-fluid">
+                            <img src="{{asset('storage/pembayaran/'.$p->participant->updated_at->format('d-m-Y'). '/' .$p->participant->bukti)}}" class="img-fluid">
                         </div>
                     </div>
                 </div>

@@ -22,11 +22,11 @@ class User extends Authenticatable
 
     public function participant()
     {
-        return $this->hasOne(participant::class);
+        return $this->hasOne(Participant::class);
     }
     public function restrict()
     {
-        return $this->hasMany(Restrict::class);
+        return $this->hasOne(Restrict::class);
     }
     public function answer()
     {

@@ -21,6 +21,7 @@ class CreateCertificatesTable extends Migration
             $table->string('nomor1')->nullable();
             $table->string('nomor2')->nullable();
             $table->string('nomor3')->nullable();
+            $table->string('type')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('participant_id')->references('id')->on('participants')->onDelete('cascade');
             $table->timestamps();

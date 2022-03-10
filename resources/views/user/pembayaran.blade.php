@@ -18,7 +18,7 @@
 			<button type="button" class="btn-close btn1" data-bs-dismiss="toast" aria-label="Close"></button>
 		  </div>
 		  <div class="toast-body">
-			Jumlah user yang sedang login pada akun ini adalah <b>{{$user->restrict->first()->jumlah}}</b> dari 3 users. Jangan lupa untuk menekan tombol <i>logout</i> jika sudah selesai ya :)
+			Jumlah user yang sedang login pada akun ini adalah <b>{{$user->restrict->jumlah}}</b> dari 3 users. Jangan lupa untuk menekan tombol <i>logout</i> jika sudah selesai ya :)
 		  </div>
 		</div>
 	
@@ -96,10 +96,10 @@
 	<div id="uploadBukti" hidden>
 		<p>
 		<ul>Nama : {{$user->name??'--'}}</ul>
-		<ul>Sekolah : {{$user->participant->first()->sekolah??'--'}}</ul>  
-		<ul>Cabang : {{$user->participant->first()->cabang??'--'}}</ul>
-		<ul>Guru Pembimbing : {{$user->participant->first()->pembimbing??'--'}}</ul>
-		<br>lakukan pembayaran dari bank <i>{{$user->participant->first()->pengirim??'--'}}</i> ke <i>{{$user->participant->first()->penerima??'--'}}</i> sebanyak <b id="early">Rp 135.000</b> <b id="late" hidden>Rp 150.000</b> <b id="essay" hidden>Rp 80.000</b> <b id="Poster" hidden>Rp 80.000</b>
+		<ul>Sekolah : {{$user->participant->sekolah??'--'}}</ul>  
+		<ul>Cabang : {{$user->participant->cabang??'--'}}</ul>
+		<ul>Guru Pembimbing : {{$user->participant->pembimbing??'--'}}</ul>
+		<br>lakukan pembayaran dari bank <i>{{$user->participant->pengirim??'--'}}</i> ke <i>{{$user->participant->penerima??'--'}}</i> sebanyak <b id="early">Rp 135.000</b> <b id="late" hidden>Rp 150.000</b> <b id="essay" hidden>Rp 80.000</b> <b id="Poster" hidden>Rp 80.000</b>
 
 		<form action="{{url('home/upload/'.$user->id)}}" method="POST" enctype="multipart/form-data">
 		@csrf
@@ -148,35 +148,35 @@
 				</div>
 				<div class="form-group d-none">
 					<label for="Email">Email</label>
-					<input type="input" class="form-control @error('email') is-invalid @enderror" name="Email" id="email" value="{{$user->participant->first()->email1??'--'}}">
+					<input type="input" class="form-control @error('email') is-invalid @enderror" name="Email" id="email" value="{{$user->participant->email1??'--'}}">
 				</div>
 				<div class="form-group">
 					<label for="Nama Ketua">Nama Ketua</label>
-					<input type="input" class="form-control @error('Nama Ketua') is-invalid @enderror" name="Nama Ketua" id="Nama Ketua" value="{{$user->participant->first()->nama1??'--'}}">
+					<input type="input" class="form-control @error('Nama Ketua') is-invalid @enderror" name="Nama Ketua" id="Nama Ketua" value="{{$user->participant->nama1??'--'}}">
 				</div>
 				<div class="form-group">
 					<label for="Nama Anggota 1">Nama Anggota 1</label>
-					<input type="input" class="form-control @error('Nama Anggota 1') is-invalid @enderror" name="Nama Anggota 1" id="Nama Anggota 1" value="{{$user->participant->first()->nama2??'--'}}">
+					<input type="input" class="form-control @error('Nama Anggota 1') is-invalid @enderror" name="Nama Anggota 1" id="Nama Anggota 1" value="{{$user->participant->nama2??'--'}}">
 				</div>
 				<div class="form-group">
 					<label for="Nama Anggota 2">Nama Anggota 2</label>
-					<input type="input" class="form-control @error('Nama Anggota 2') is-invalid @enderror" name="Nama Anggota 2" id="Nama Anggota 2" value="{{$user->participant->first()->nama3??'--'}}">
+					<input type="input" class="form-control @error('Nama Anggota 2') is-invalid @enderror" name="Nama Anggota 2" id="Nama Anggota 2" value="{{$user->participant->nama3??'--'}}">
 				</div>
 				<div class="form-group d-none">
 					<label for="Asal Sekolah">Asal Sekolah</label>
-					<input type="input" class="form-control @error('Asal Sekolah') is-invalid @enderror" name="Asal Sekolah" id="Asal Sekolah" value="{{$user->participant->first()->sekolah??'--'}}">
+					<input type="input" class="form-control @error('Asal Sekolah') is-invalid @enderror" name="Asal Sekolah" id="Asal Sekolah" value="{{$user->participant->sekolah??'--'}}">
 				</div>
 				<div class="form-group d-none">
 					<label for="Cabang Lomba">Cabang Lomba</label>
-					<input type="input" class="form-control @error('Cabang Lomba') is-invalid @enderror" name="Cabang Lomba" id="Cabang Lomba" value="{{$user->participant->first()->cabang??'--'}}">
+					<input type="input" class="form-control @error('Cabang Lomba') is-invalid @enderror" name="Cabang Lomba" id="Cabang Lomba" value="{{$user->participant->cabang??'--'}}">
 				</div>
 				<div class="form-group d-none">
 					<label for="Nomor Hp">Nomor Hp</label>
-					<input type="input" class="form-control @error('Nomor Hp') is-invalid @enderror" name="Nomor Hp" id="Nomor Hp" value="{{$user->participant->first()->telepon1??'--'}}">
+					<input type="input" class="form-control @error('Nomor Hp') is-invalid @enderror" name="Nomor Hp" id="Nomor Hp" value="{{$user->participant->telepon1??'--'}}">
 				</div>
 				<div class="form-group d-none">
 					<label for="Id Line">Id Line</label>
-					<input type="input" class="form-control @error('Id Line') is-invalid @enderror" name="Id Line" id="Id Line" value="{{$user->participant->first()->line1??'--'}}">
+					<input type="input" class="form-control @error('Id Line') is-invalid @enderror" name="Id Line" id="Id Line" value="{{$user->participant->line1??'--'}}">
 				</div>
 				<div class="form-check">
 				  <div>
@@ -231,7 +231,7 @@ var	bayar = document.getElementById('bayar');
 	var poster = document.getElementById('Poster');
 	var upload = document.getElementById('uploadBukti')
 	var lulus = document.getElementById('lulus')
-	if ('{{isset($user->participant->first()->cabang)}}') {
+	if ('{{isset($user->participant->cabang)}}') {
 		upload.removeAttribute("hidden");
 		bayar.setAttribute("hidden", "");
 		sukses.setAttribute("hidden", "");
@@ -245,13 +245,13 @@ var	bayar = document.getElementById('bayar');
 		essay.setAttribute("hidden", "");
 		late.removeAttribute("hidden");
 	}
-	if ('{{$user->participant->first()->cabang??false}}' == 'Essay') {
+	if ('{{$user->participant->cabang??false}}' == 'Essay') {
 		early.setAttribute("hidden", "");
 		poster.setAttribute("hidden", "");
 		late.setAttribute("hidden", "");
 		essay.removeAttribute("hidden");
 	}
-	if ('{{$user->participant->first()->cabang??false}}' == 'Poster') {
+	if ('{{$user->participant->cabang??false}}' == 'Poster') {
 		early.setAttribute("hidden", "");
 		late.setAttribute("hidden", "");
 		essay.setAttribute("hidden", "");

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/1479144cfe.js" crossorigin="anonymous"></script>
 
     <title>Bioscope</title>
@@ -21,12 +21,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
-        @if($data->find(11)->nilai)
-        <a target="_blank" href="{{$data->find(11)->nilai}}" class="btn btn-info rounded-pill py-2">Webinar 1 (Tanggal)</a>
-        @elseif ($data->find(12)->nilai)
-        <a target="_blank" href="{{$data->find(12)->nilai}}" class="btn btn-info rounded-pill py-2">Webinar 2 (Tanggal)</a>
-        @elseif ($data->find(13)->nilai)
-        <a target="_blank" href="{{$data->find(13)->nilai}}" class="btn btn-info rounded-pill py-2">Webinar 3 (Tanggal)</a>
+        @if($data->find(19)->nilai)
+        <a target="_blank" href="{{$data->find(16)->nilai}}" class="btn btn-info rounded-pill py-2 my-1 d-block">Webinar 1 (Tanggal)</a>
+        @endif
+        @if ($data->find(22)->nilai)
+        <a target="_blank" href="{{$data->find(17)->nilai}}" class="btn btn-info rounded-pill py-2 my-1 d-block">Webinar 2 (Tanggal)</a>
+        @endif
+        @if ($data->find(25)->nilai)
+        <a target="_blank" href="{{$data->find(18)->nilai}}" class="btn btn-info rounded-pill py-2 my-1 d-block">Webinar 3 (Tanggal)</a>
         @endif
       </div>
     </div>
@@ -37,23 +39,62 @@
       <div class="row">
         <h1 class="d-flex justify-content-center my-5 fw-bold display-1">Webinar BIOSCOPE</h1>
       </div>
+      @if ($data->find(19)->nilai)    
       <div class="row">
         <div class="col-md-8 mx-auto">
           <img src="{{asset('files/event/what-in.jpeg')}}" alt="Webinar1" class="img-fluid">
         </div>
       </div>
       <div class="row mx-auto">
-          <h2 class="display-3 d-flex justify-content-center">Webinar 1</h2>
+          <h2 class="display-3 d-flex justify-content-center">{{$data->find(19)->nilai}}</h2>
       </div>
       <div class="row">
-          <h5 style="opacity: 0.5;" class="d-flex justify-content-center">31 Agustus 2021</h5>
+          <h5 style="opacity: 0.5;" class="d-flex justify-content-center">{{$data->find(20)->nilai}}</h5>
       </div>
       <div class="row col-md-8 mx-auto">
-        <p class="d-flex justify-content-center" style="text-align:justify; text-justify:inter-word;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas vitae scel<span id="dots">...</span><span id="more" class="d-none">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.
-        <br>
-        </span></p>
-        <a href="##"id="myBtn" class="link-secondary d-flex justify-content-center mb-3 text-decoration-none">Read More</a>
+        <div>
+          <div>
+            {!! $data->find(21)->nilai !!}
+          </div>
+        </div>
       </div>
+      @endif
+      @if ($data->find(22)->nilai)    
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <img src="{{asset('files/event/what-in.jpeg')}}" alt="Webinar2" class="img-fluid">
+        </div>
+      </div>
+      <div class="row mx-auto">
+          <h2 class="display-3 d-flex justify-content-center">{{$data->find(22)->nilai}}</h2>
+      </div>
+      <div class="row">
+          <h5 style="opacity: 0.5;" class="d-flex justify-content-center">{{$data->find(23)->nilai}}</h5>
+      </div>
+      <div class="row col-md-8 mx-auto">
+        <div>
+          {!! $data->find(24)->nilai !!}
+        </div>
+      </div>
+      @endif
+      @if ($data->find(25)->nilai)    
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <img src="{{asset('files/event/what-in.jpeg')}}" alt="Webinar3" class="img-fluid">
+        </div>
+      </div>
+      <div class="row mx-auto">
+          <h2 class="display-3 d-flex justify-content-center">{{$data->find(25)->nilai}}</h2>
+      </div>
+      <div class="row">
+          <h5 style="opacity: 0.5;" class="d-flex justify-content-center">{{$data->find(26)->nilai}}</h5>
+      </div>
+      <div class="row col-md-8 mx-auto">
+        <div>
+          {!! $data->find(27)->nilai !!}
+        </div>
+      </div>
+      @endif
     </div>
     <footer class="p-2 text-white" style="background-color: rgb(89,89,89); margin-bottom: -70px;">
       <div class="row">
@@ -101,31 +142,6 @@
             </p>
           </div>
     </footer>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script>
-        var dots = document.getElementById("dots");
-            var moreText = document.getElementById("more");
-            var btnText = document.getElementById("myBtn");
-
-            btnText.addEventListener('click', function() {
-                if (dots.style.display == "none") {
-                    dots.style.display = "inline";
-                    btnText.innerHTML = "Read more";
-                    moreText.classList.toggle('d-none');
-                } else {
-                    dots.style.display = "none";
-                    btnText.innerHTML = "Read less";
-                    moreText.classList.toggle('d-none');
-                }
-            });
-    </script>    
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js" crossorigin="anonymous"></script>  
   </body>
 </html>

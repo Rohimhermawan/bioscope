@@ -44,7 +44,7 @@ class UserController extends Controller
             ]);
         }
 
-        return back();
+        return back()->with('success', 'Data has been updated successfully');
     }
 
     public function pass($id) {
@@ -91,29 +91,34 @@ class UserController extends Controller
     );
         return $html->setPaper('a5')->stream();
     }
-    public function create()
-    {
-        //
-    }
 
-    public function store(Request $request)
+    public function printCertificate($id)
     {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-
+        $data = user::where('name', $id)->with('participant')->first();
+        $html = App::make('dompdf.wrapper');
+        $html = PDF::loadView('user/sertif', compact('data'))->setOptions(['images' => true, 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $contxt = stream_context_create([
+    'http' => [
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method'  => 'GET',
+        'user_agent' => 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)',
+    ],
+    'ssl' => [ 
+        'verify_peer' => FALSE, 
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE,
+    ] 
+]);
+        $html->getDomPDF()->setHttpContext(
+        stream_context_create([
+            'ssl' => [
+                'allow_self_signed'=> TRUE,
+                'verify_peer' => FALSE,
+                'verify_peer_name' => TRUE,
+            ]
+        ])
+    );
+        return $html->setPaper('a4', 'landscape')->stream();
     }
 
     public function destroy($id)

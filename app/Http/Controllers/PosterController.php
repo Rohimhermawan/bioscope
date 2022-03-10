@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\participant;
+use App\Models\Participant;
 use App\Models\Poster;
 use App\Models\User;
+use App\Models\Trace;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PosterController extends Controller
 {
@@ -52,6 +54,7 @@ class PosterController extends Controller
     }
     public function voting(request $request, $id, $userId) {
         $data = poster::find($id);
+        // dd($data);
         if($request->cookie($id) == 'sudah') {
             $likes = $data->likes - 1;
             Cookie::queue(cookie::make($id, 'cancel', 60*24*14));
@@ -59,23 +62,32 @@ class PosterController extends Controller
                 ->update([
                     'likes' => $likes,
                 ]);
-            return redirect('vote-poster')->with('success', 'Jumlah likes'. $data->user->name .' sudah berkurang.');
+            trace::create([
+                'nama' => $_COOKIE['username'],
+                'poster_id' => $id,                 
+                'email' => $_COOKIE['email'],                
+                'action' => 'Unvote',                
+                'device' => $request->header('User-Agent')                
+            ]);
+            return redirect('vote-poster')->with('success', 'Jumlah likes '. $data->user->name .' sudah berkurang.');
         } else {
             $likes = $data->likes + 1;
-            Cookie::queue(cookie::make($id, 'sudah', 30));
+            Cookie::queue(cookie::make($id, 'sudah', 60*24*14));
             poster::where('id', $id)
-                ->update([
-                    'likes' => $likes,
-                ]);
+            ->update([
+                'likes' => $likes,
+            ]);
+            trace::create([
+                'nama' => $_COOKIE['username'],
+                'poster_id' => $id,                 
+                'email' => $_COOKIE['email'],                
+                'action' => 'Vote',                
+                'device' => $request->header('User-Agent')                
+            ]);
             return redirect('vote-poster')->with('success', 'Jumlah likes '. $data->user->name .' sudah bertambah. Yuk ajak yang lainnya untuk vote');
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $id[] = poster::get('user_id');
@@ -86,32 +98,21 @@ class PosterController extends Controller
         return view('admin.poster.create', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
             'user_id' => 'required|numeric',
-            'poster' => 'required|max:1000',
+            'poster' => 'required|image|max:1000',
         ]);
          $fileNameToStore = null;
-        if ($request->file('poster')) {
             
             $filenameWithExt = $request->file('poster')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // Get just ext
             $extension = $request->file('poster')->getClientOriginalExtension();
             // Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $request->namaUser.'_'.time().'.'.$extension;
             // // Upload Image
             $path = $request->file('poster')->storeAs('public/poster', $fileNameToStore, 'local');
-        }
-        $fileNameToStore = isset($fileNameToStore) ? $fileNameToStore : ''; //add a default value here
 
         poster::create([
             'user_id' => $request->user_id,
@@ -121,56 +122,32 @@ class PosterController extends Controller
     return redirect('poster')->with('success','Poster created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $data = poster::where('id', $id)->with('trace', 'user')->first();
+        return view('admin.poster.trace', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = poster::find($id);
         return view('admin.poster.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'poster' => 'max:1000',
+            'poster' => 'required|image|max:1000',
         ]);
          $fileNameToStore = null;
-        if ($request->file('poster')) {
-            
+            storage::disk('public')->delete('poster/'.$request->riwayat);
             $filenameWithExt = $request->file('poster')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // Get just ext
             $extension = $request->file('poster')->getClientOriginalExtension();
             // Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $request->namaUser.'_'.time().'.'.$extension;
             // // Upload Image
             $path = $request->file('poster')->storeAs('public/poster', $fileNameToStore, 'local');
-        }
-        $fileNameToStore = isset($fileNameToStore) ? $fileNameToStore : $request->riwayat; //add a default value here
-
         poster::where('id', $id)
             ->update([
                 'poster' => $fileNameToStore,
@@ -179,15 +156,16 @@ class PosterController extends Controller
     return redirect('poster')->with('success','Poster updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Poster $id)
     {
-        poster::destroy($id);
+        storage::disk('public')->delete('poster/'.$id->poster);
+        poster::destroy($id->id);
         return back()->with('delete','Poster deleted successfully!');
+    }
+
+    public function fetch(User $id)
+    {
+        $nama = $id->name;
+        return response()->json($nama);
     }
 }

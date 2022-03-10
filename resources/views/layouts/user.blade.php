@@ -1,8 +1,9 @@
 <?php 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Participant;
+use App\Models\Controller;
 
 $user = auth::user();
+$sertif = controller::find(10);
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +64,7 @@ $user = auth::user();
           <a class="nav-link" href="{{url('home/pembayaran')}}" id="upload" aria-disabled="true">Upload Pembayaran</a>
           <a class="nav-link disabled" aria-current="page" href="{{url('home/identitas')}}" id="identitas" hidden aria-disabled="true">Tambah Identitas</a>
           <a class="nav-link disabled" aria-current="page" href="{{url('home/identitas-peserta')}}" id="identitas1" hidden aria-disabled="true">Identitas</a>
-          <a class="nav-link disabled" href="#" id="sertif" hidden aria-disabled="true">Sertifikat</a>
+          <a class="nav-link @if($sertif->nilai == 'Tidak Aktif') disabled @endif" href="/home/sertifikat/{{$user->name}}" target="_blank" id="sertif" hidden aria-disabled="true">Sertifikat</a>
           <a class="nav-link disabled" href="{{url('exam')}}" id="test" hidden aria-disabled="true">Test</a>
           <a class="nav-link disabled" href="{{url('upload-karya')}}" id="karya" hidden aria-disabled="true">Upload Karya</a>
           <b style="position: absolute; right: 7%; top: 27%;" id="pengguna">{{$user->name}}</b>
@@ -126,20 +127,22 @@ $user = auth::user();
     var identitas = document.getElementById('identitas');
     var identitas1 = document.getElementById('identitas1');
     var sertif = document.getElementById('sertif');
-    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{$user->participant->first()->domisili1}}' == '') {
+    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{$user->participant->domisili1??"ada"}}' == '') {
       identitas.classList.remove("disabled");
       identitas.removeAttribute("hidden");
     } 
     
-    if ('{{isset($user->participant->first()->domisili1)}}') {
+    if ('{{isset($user->participant->domisili1)}}') {
       identitas1.classList.remove("disabled");
       identitas1.removeAttribute("hidden");
-      if ( "{{$user->participant->first()->cabang??'--'}}" == 'Olimpiade') {
+      if ( "{{$user->participant->cabang??'--'}}" == 'Olimpiade') {
         var test = document.getElementById('test');
+        var test = document.getElementById('sertif');
         test.classList.remove("disabled");
           test.removeAttribute("hidden");
+          sertif.removeAttribute("hidden");
       }
-      if ("{{$user->participant->first()->cabang??'--'}}" !== 'Olimpiade') {
+      if ("{{$user->participant->cabang??'--'}}" !== 'Olimpiade') {
         var karya = document.getElementById('karya');
           karya.classList.remove("disabled");
           karya.removeAttribute("hidden");

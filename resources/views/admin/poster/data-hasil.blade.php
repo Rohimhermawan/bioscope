@@ -15,13 +15,15 @@
                                             <th>Nama</th>
                                             <th>Jumlah Likes</th>
                                             <th>Status</th>
+                                            <th>Tracing</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Jumlah Likes</th>
-                                            <th>Status</th>                      
+                                            <th>Status</th>
+                                            <th>Tracing</th>                      
                                     </tfoot>
                                     <tbody>
                                         @foreach ($data as $p)
@@ -31,6 +33,9 @@
                                             <td>{{$p->likes}}</td>
                                             <td> 
                                                 <span id="status{{$loop->iteration}}" class="btn badge">{{$p->user->pembayaran}}</span>
+                                            </td>
+                                            <td>
+                                                <a href="/poster/trace/{{$p->id}}" class="btn badge badge-info p-2">Show</a>
                                             </td>
                                         </tr>
                                         @endforeach

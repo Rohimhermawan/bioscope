@@ -22,6 +22,7 @@
                                           @endforeach
                                         </select>
                                     </div>
+                                    <input type="text" name="namaUser" value="" hidden id="namaUser">
                                     <div class="form-group">
                                         <label for="Poster">Poster</label>
                                         @error('poster')
@@ -34,4 +35,13 @@
                             </form>
                         </div>
                     </div>
+                    <script>
+                        const opsi = document.querySelector('#nama');
+                        const nama = document.querySelector('#namaUser');
+                        opsi.addEventListener('change', function(){
+                            fetch('/fetch/poster/'+opsi.value)
+                                .then(response => response.json())
+                                .then(e => nama.value = e)
+                        });
+                    </script>
 @endsection

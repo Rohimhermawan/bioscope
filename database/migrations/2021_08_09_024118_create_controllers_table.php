@@ -16,7 +16,7 @@ class CreateControllersTable extends Migration
         Schema::create('controllers', function (Blueprint $table) {
             $table->id();
             $table->string('Nama');
-            $table->string('nilai');
+            $table->text('nilai')->nullable();
             $table->string('type');
             $table->timestamps();
         });

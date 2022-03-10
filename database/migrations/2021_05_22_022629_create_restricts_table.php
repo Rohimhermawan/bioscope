@@ -15,9 +15,9 @@ class CreateRestrictsTable extends Migration
     {
         Schema::create('restricts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('User_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('jumlah');
-            $table->foreign('User_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

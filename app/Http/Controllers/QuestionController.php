@@ -27,7 +27,7 @@ class QuestionController extends Controller
     {
         $request->validate([
             'exam_id' => 'required',
-            'image' => 'max:1000',
+            'image' => 'image|max:1000',
             'soal' => 'required',
             'opsi_a' => 'required',
             'opsi_b' => 'required',
@@ -104,6 +104,7 @@ class QuestionController extends Controller
         $question = question::find($id);
         $request->validate([
             'exam_id' => 'required',
+            'gambar' => 'image|max:1000',
             'soal' => 'required',
             'opsi_a' => 'required',
             'opsi_b' => 'required',

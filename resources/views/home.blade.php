@@ -209,19 +209,15 @@
           <div class="owl-carousel col-12 nonloop-block-14">
             <div class="course bg-white h-100 align-self-stretch" data-toggle="modal" data-target="#introduction">
             <img class="my-3" src="{{asset('files/event/what-out.png')}}" alt="Introduction">
-              </img>
             </div>
             <div class="course bg-white h-100 align-self-stretch" data-toggle="modal" data-target="#tanda">
             <img class="my-3" src="{{asset('files/event/logo-out.png')}}" alt="Logo">
-              </img>
             </div>
             <div class="course bg-white h-100 align-self-stretch" data-toggle="modal" data-target="#maskot">
               <img class="my-3" src="{{asset('files/event/mascot-out.png')}}" alt="Mascot">
-              </img>
             </div>
             <div class="course bg-white h-100 align-self-stretch" data-toggle="modal" data-target="#tema">
               <img class="my-3" src="{{asset('files/event/theme-out.png')}}" alt="Theme">
-              </img>
             </div>
           </div>      
         </div>
@@ -279,10 +275,10 @@
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Webinar</h2>
             <!-- <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p> -->
-            @if ($data->find(5)->nilai == "Tidak Aktif")
+            @if ($data->find(4)->nilai == "Tidak Aktif")
             <a class="btn btn-warning btn-pill" style="color: honeydew;">Coming Soon!</a>
             @else
-            <a class="btn btn-success btn-pill" href="{{route('webinar')}}" style="color: honeydew;">See More</a>
+            <a class="btn btn-success btn-pill" href="/webinar" style="color: honeydew;">See More</a>
             @endif
           </div>
         </div>
@@ -294,7 +290,7 @@
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Merchandise</h2>
             <!-- <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p> -->
-            @if ($data->find(6)->nilai == "Tidak Aktif")
+            @if ($data->find(5)->nilai == "Tidak Aktif")
             <a class="btn btn-warning btn-pill" style="color: honeydew;">Coming Soon!</a>
             @else
             <a class="btn btn-success btn-pill" href="{{$data->find(7)->nilai}}" style="color: honeydew;">See More!</a>

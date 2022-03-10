@@ -14,6 +14,8 @@
                                     <div class="form-group">
                                         Nama : {{$data->user->name}}
                                     </div>
+                                    <img src="{{asset('storage/poster/'.$data->poster)}}" alt="{{$data->poster}}" class="d-block w-25">
+                                    <input type="text" value="{{$data->user->name}}" name="namaUser" hidden>
                                     <input type="text" value="{{$data->poster}}" name="riwayat" hidden>
                                     <div class="form-group">
                                         <label for="Poster">Poster</label>
@@ -28,9 +30,4 @@
                         </div>
                     </div>
                 <!-- /.container-fluid -->
-<script>
-    var peraturan = document.getElementById('peraturan');
-    CKEDITOR.replace(peraturan);
-    CKEDITOR.config.allowedContent = true;
-</script>
 @endsection

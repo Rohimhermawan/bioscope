@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = controller::find(4);
+        $data = controller::find(8);
         $participant= user::where('is_admin', '=', $data->nilai)->get();
         $participants = count($participant);
         $bayar = user::where([
@@ -28,7 +28,7 @@ class DashboardController extends Controller
             ])->orWhere([
                 ['pembayaran','=' ,'Lolos'],
                 ['is_admin', '=', $data->nilai]
-                ])->get();
+                ])->with('participant')->get();
         $belum = user::where([
             ['pembayaran','=' ,'Belum Bayar'],
             ['is_admin', '=', $data->nilai]
@@ -41,14 +41,12 @@ class DashboardController extends Controller
             $poster = 0;
             $essay = 0;
             foreach ($bayar as $s) {
-                foreach ($s->participant as $p) {
-                    if($p->cabang == "Olimpiade") {
-                    $olym += 1;
-                    } else if($p->cabang == "Poster") {
-                    $poster += 1;
-                    } else if($p->cabang == "Essay") {
-                    $essay += 1;
-                    }
+                if($s->participant->cabang == "Olimpiade") {
+                $olym += 1;
+                } else if($s->participant->cabang == "Poster") {
+                $poster += 1;
+                } else if($s->participant->cabang == "Essay") {
+                $essay += 1;
                 }
             }
         $bayar = $bayar->count();
@@ -82,37 +80,46 @@ class DashboardController extends Controller
                         ]);
                 }
             }
-        else if ($data->type == "Num") {
+        else if ($data->type == "Int") {
             if ($data->nilai == 3) {
                 controller::where('id', $id)
                     ->update([
                         'nilai' => 2
                     ]);
             }
-            if ($data->nilai == 2) {
+            else if ($data->nilai == 2) {
                 controller::where('id', $id)
                     ->update([
                         'nilai' => 3
                     ]);
             }
         }
-        if ($data->type == "Var") {
+        else if ($data->type == "Var") {
             $isi = $request->$id;
             controller::where('id', $id)
                 ->update([
                     'nilai' => $isi
                 ]);
         }
-        return back();
+        else if ($data->type == "Text") {
+            $isi = $request->$id;
+            controller::where('id', $id)
+                ->update([
+                    'nilai' => $isi
+                ]);
+        }
+        return back()->with('success', $data->Nama . ' berhasil diubah');
     }
     
-    public function generateCertif1() {
+    public function generateCertif1() 
+    {
+        $data = controller::find(4);
         $bayar = user::where([
             ['pembayaran','=' ,'Sudah Bayar'],
-            ['is_admin', '=', '3']
-            ])->get();
-        $noSertif = controller::find(21)->nilai;
-        $sertif = controller::find(20)->nilai;
+            ['is_admin', '=', $data->nilai]
+            ])->with('participants')->get();
+        $noSertif = controller::find(11)->nilai;
+        $sertif = controller::find(12)->nilai;
         settype($noSertif, "int");
         if (certificate::where('type', 'pny')->get()->first() !== null) {
             certificate::where('type', 'pny')->delete();
@@ -151,20 +158,25 @@ class DashboardController extends Controller
                 }
             }
         }
+        controller::where('id', 13)->update(['nilai' => $noSertif]);
         return back()->with('success', 'number of certificates has been added');
     }
 
-    public function generateCertif2() {
+    public function generateCertif2() 
+    {
+        $data = controller::find(4);
         $bayar = user::where([
             ['pembayaran','=' ,'Lolos'],
-            ['is_admin', '=', '3']
-            ])->get();
-        $noSertif = controller::find(21)->nilai;
-        $sertif = controller::find(20)->nilai;
+            ['is_admin', '=', $data->nilai]
+            ])->with('participants')->get();
+        $noSertif = controller::find(13)->nilai;
+        $sertif = controller::find(12)->nilai;
         settype($noSertif, "int");
-        $data = [];
-        if (certificate::where('type', 'smf')->get()->first() !== null) {
-            certificate::where('type', 'smf')->delete();
+        $certificate = certificate::where('type', 'smf')->get();
+        if ($certificate->first() !== null) {
+            foreach ($certificate as $c ) {
+                certificate::where('id', $c->id)->delete();
+            }
         }
         foreach ($bayar as $s) {
             foreach ($s->participant as $p) {
@@ -200,6 +212,7 @@ class DashboardController extends Controller
                 }
             }
         }
+        controller::where('id', 14)->update(['nilai' => $noSertif-1]);
         return back()->with('success', 'number of certificates has been added');
     }
 
