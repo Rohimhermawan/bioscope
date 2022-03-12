@@ -26,32 +26,31 @@
                                     <div class="form-group">
                                         <img src="{{url('storage/gambar/soal/'.$data->exam_id. '/' .$data->gambar)}}" width="400px"><br>
                                         <label for="gambar">Gambar</label>
-                                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" id="gambar" value="$data->gambar">
+                                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" id="gambar">
                                     </div>
                                     <div class="form-group">
                                         <label for="soal">Soal</label>
-                                        <textarea type="number" class="form-control @error('soal') is-invalid @enderror" name="soal" id="soal">
-                                        {{$data->soal}}</textarea>
+                                        <textarea type="number" class="form-control @error('soal') is-invalid @enderror" name="soal" id="soal">{{old('soal',$data->soal)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihana">Pilihan A</label>
-                                        <textarea type="text" class="form-control @error('pilihana') is-invalid @enderror" name="opsi_a" id="pilihana">{{$data->opsi_a}}</textarea>
+                                        <textarea type="text" class="form-control @error('pilihana') is-invalid @enderror" name="opsi_a" id="pilihana">{{old('opsi_a',$data->opsi_a)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihanb">Pilihan B</label>
-                                        <textarea type="text" class="form-control @error('pilihanb') is-invalid @enderror" name="opsi_b" id="pilihanb">{{$data->opsi_b}}</textarea>
+                                        <textarea type="text" class="form-control @error('pilihanb') is-invalid @enderror" name="opsi_b" id="pilihanb">{{old('opsi_b',$data->opsi_b)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihanc">Pilihan C</label>
-                                        <textarea type="text" class="form-control @error('pilihanc') is-invalid @enderror" name="opsi_c" id="pilihanc">{{$data->opsi_c}}</textarea>
+                                        <textarea type="text" class="form-control @error('pilihanc') is-invalid @enderror" name="opsi_c" id="pilihanc">{{old('opsi_c',$data->opsi_c)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihand">Pilihan D</label>
-                                        <textarea type="text" class="form-control @error('pilihand') is-invalid @enderror" name="opsi_d" id="pilihand">{{$data->opsi_d}}</textarea>
+                                        <textarea type="text" class="form-control @error('pilihand') is-invalid @enderror" name="opsi_d" id="pilihand">{{old('opsi_d',$data->opsi_d)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="pilihane">Pilihan E</label>
-                                        <textarea type="text" class="form-control @error('pilihane') is-invalid @enderror" name="opsi_e" id="pilihane">{{$data->opsi_e}}</textarea>
+                                        <textarea type="text" class="form-control @error('pilihane') is-invalid @enderror" name="opsi_e" id="pilihane">{{old('opsi_e',$data->opsi_e)}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="kunci">Kunci</label>

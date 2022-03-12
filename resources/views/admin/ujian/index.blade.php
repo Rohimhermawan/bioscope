@@ -57,10 +57,10 @@
                                             <td>{{$p->soal}}</td>
                                             <td>
                                                 <form method="GET" action="{{url('test/'.$p->id)}}">
-                                                <button class="btn badge badge-warning p-2">Edit</button>
+                                                <button class="btn badge badge-warning p-2"><i class="fa fa-pencil"></i></button>
                                                 </form>
                                                 <hr>
-                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}">Delete</a>
+                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                             <td> 
                                                 <span id="status{{$loop->iteration}}" class="btn badge">{{$p->keterangan}}</span>
@@ -73,7 +73,7 @@
                                             </td>
                                             <td>
                                                 <form method="GET" action="{{url('soal/'.$p->id)}}">
-                                                	<button type="submit" class="btn badge badge-info p-2">Show</button>
+                                                	<button type="submit" class="btn badge badge-info p-2">Show<i class="fa-solid fa-magnifying-glass"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

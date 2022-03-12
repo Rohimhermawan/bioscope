@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application'sn database.
      *
      * @return void
      */
@@ -86,17 +86,19 @@ class DatabaseSeeder extends Seeder
             'type' => 'Var' 
         ]);
         controller::create([
-            'nama' => 'Tombol Cadangan',
-            'nilai' => 'Aktif', 
-            'type' => 'Bool' 
+            'nama' => 'Jumlah Maksimal Login',
+            'nilai' => 3, 
+            'type' => 'Var' 
         ]);
         controller::create([
             'nama' => 'Link Webinar 1',
             'type' => 'Var' 
-        ]);controller::create([
+        ]);
+        controller::create([
             'nama' => 'Link Webinar 2',
             'type' => 'Var' 
-        ]);controller::create([
+        ]);
+        controller::create([
             'nama' => 'Link Webinar 3',
             'type' => 'Var' 
         ]);
@@ -144,6 +146,16 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Caption Webinar 3',
             'nilai' => 'Aktif', 
             'type' => 'Text' 
+        ]);
+        controller::create([
+            'nama' => 'Link Upload Poster',
+            'nilai' => '', 
+            'type' => 'Var' 
+        ]);
+        controller::create([
+            'nama' => 'Link Upload Essay',
+            'nilai' => '', 
+            'type' => 'Var' 
         ]);
         user::create([
             'name' => 'Bioscope',

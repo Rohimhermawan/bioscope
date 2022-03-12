@@ -50,11 +50,11 @@
 									btn.setAttribute('hidden', '');
 									btn2.removeAttribute('hidden');
 									btn2.innerHTML = 'Anda Tidak Diizinkan';
-								} if ("{{$user->answer->where('exam_id',$p->id)->first()->hasil}}" != '') {
+								} else if ("{{$user->answer->where('exam_id',$p->id)->first()->hasil??''}}" != '') {
 									btn.setAttribute('hidden', '');
 									btn1.removeAttribute('hidden');
 									btn1.innerHTML = 'Sudah Dikerjakan';
-								} if ( '{{last(explode('_', $p->nama))}}' == 'quiziz') {
+								} else if ( '{{last(explode('_', $p->nama))}}' == 'quiziz') {
 										if ( '{{$user->pembayaran}}' !== 'Lolos' ) {
 											btn.setAttribute('hidden', '');
 											btn2.removeAttribute('hidden');

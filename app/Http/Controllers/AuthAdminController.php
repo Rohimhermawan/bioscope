@@ -44,39 +44,40 @@ class AuthAdminController extends Controller
              if (auth::user()->is_admin == 1) {
                  return redirect('admin');
                 } 
-                // panitia(2)/peserta(3) boleh masuk
-                else if(auth::user()->is_admin == controller::find(8)->nilai ) {
-                $userLogin = restrict::where('user_id', auth::user()->id)->first();
-                $jumlah = $userLogin->jumlah??null;
-                    if ($jumlah == null) {
-                        restrict::create([
-                            'user_id' => auth::user()->id,
-                            'jumlah' => 1
+            // panitia(2)/peserta(3) boleh masuk
+            else if(auth::user()->is_admin == controller::find(8)->nilai ) {
+            $userLogin = restrict::where('user_id', auth::user()->id)->first();
+            $jumlah = $userLogin->jumlah??null;
+            $maksimal = controller::find(15)->nilai;
+                if ($jumlah == null) {
+                    restrict::create([
+                        'user_id' => auth::user()->id,
+                        'jumlah' => 1
+                    ]);
+                    $request->session()->regenerate();
+                    return redirect('home/pembayaran');
+                } else if ($jumlah >= 0 && $jumlah < $maksimal ) {
+                        $jumlah += 1;
+                        restrict::where('user_id', auth::user()->id)
+                        ->update([
+                            'jumlah' => $jumlah
                         ]);
                         $request->session()->regenerate();
                         return redirect('home/pembayaran');
                     }
-                    else if ($jumlah >= 0 && $jumlah <=2 ) {
-                            $jumlah += 1;
-                            restrict::where('user_id', auth::user()->id)
-                            ->update([
-                                'jumlah' => $jumlah
-                            ]);
-                            $request->session()->regenerate();
-                            return redirect('home/pembayaran');
-                        }
-                    else if ($jumlah >= 3) {
-                        abort(403);
-                    }    
-                } else {
+                else if ($jumlah >= $maksimal) {
                     Auth::logout();
                     abort(403);
-                }
-         }else{  
-            return redirect('login')->withErrors([
-            'email' => 'The email/password do not match our records.',
-        ]);
-        }
+                }    
+            } else {
+                Auth::logout();
+                abort(403);
+            }
+        }else{  
+        return redirect('login')->withErrors([
+        'email' => 'The email/password do not match our records.',
+    ]);
+    }
     }
 
     public function logout()

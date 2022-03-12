@@ -180,7 +180,7 @@ class ExamController extends Controller
         $data = [];
         // $last = [];
         // format waktu
-        $waktuUjian = strtotime($ujian->tanggal);
+        $waktuUjian = strtotime($ujian->tanggal)-60*60*7;
         $jenis = explode('_', $ujian->nama);
         
         foreach ($soall as $a) {

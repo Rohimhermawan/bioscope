@@ -53,7 +53,7 @@ $sertif = controller::find(10);
   </style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style=" background-image: url('{{asset('files/user/bg-user.png')}}'); background-size:cover">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light text-dark fixed-top" style="background-color: #555555 ">
+    <nav class="navbar navbar-expand-lg navbar-dark text-light fixed-top" style="background-color: #555555 ">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Bioscope</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@ $sertif = controller::find(10);
           <a class="nav-link disabled" aria-current="page" href="{{url('home/identitas-peserta')}}" id="identitas1" hidden aria-disabled="true">Identitas</a>
           <a class="nav-link @if($sertif->nilai == 'Tidak Aktif') disabled @endif" href="/home/sertifikat/{{$user->name}}" target="_blank" id="sertif" hidden aria-disabled="true">Sertifikat</a>
           <a class="nav-link disabled" href="{{url('exam')}}" id="test" hidden aria-disabled="true">Test</a>
-          <a class="nav-link disabled" href="{{url('upload-karya')}}" id="karya" hidden aria-disabled="true">Upload Karya</a>
+          <a class="nav-link disabled" href="/home/upload-karya" id="karya" hidden aria-disabled="true">Upload Karya</a>
           <b style="position: absolute; right: 7%; top: 27%;" id="pengguna">{{$user->name}}</b>
           <a class="nav-link" id="logout" href="{{url('logout')}}" aria-disabled="true">Logout</a>
         </div>
@@ -127,7 +127,7 @@ $sertif = controller::find(10);
     var identitas = document.getElementById('identitas');
     var identitas1 = document.getElementById('identitas1');
     var sertif = document.getElementById('sertif');
-    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{$user->participant->domisili1??"ada"}}' == '') {
+    if ('{{$user->pembayaran}}' == 'Sudah Bayar' && '{{$user->participant->domisili1??""}}' == '') {
       identitas.classList.remove("disabled");
       identitas.removeAttribute("hidden");
     } 
@@ -135,12 +135,11 @@ $sertif = controller::find(10);
     if ('{{isset($user->participant->domisili1)}}') {
       identitas1.classList.remove("disabled");
       identitas1.removeAttribute("hidden");
+      sertif.removeAttribute("hidden");
       if ( "{{$user->participant->cabang??'--'}}" == 'Olimpiade') {
         var test = document.getElementById('test');
-        var test = document.getElementById('sertif');
         test.classList.remove("disabled");
           test.removeAttribute("hidden");
-          sertif.removeAttribute("hidden");
       }
       if ("{{$user->participant->cabang??'--'}}" !== 'Olimpiade') {
         var karya = document.getElementById('karya');

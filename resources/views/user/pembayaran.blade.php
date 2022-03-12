@@ -18,7 +18,7 @@
 			<button type="button" class="btn-close btn1" data-bs-dismiss="toast" aria-label="Close"></button>
 		  </div>
 		  <div class="toast-body">
-			Jumlah user yang sedang login pada akun ini adalah <b>{{$user->restrict->jumlah}}</b> dari 3 users. Jangan lupa untuk menekan tombol <i>logout</i> jika sudah selesai ya :)
+			Jumlah user yang sedang login pada akun ini adalah <b>{{$user->restrict->jumlah}}</b> dari {{$batas}} users. Jangan lupa untuk menekan tombol <i>logout</i> jika sudah selesai ya :)
 		  </div>
 		</div>
 	

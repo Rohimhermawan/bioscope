@@ -90,19 +90,19 @@
   				</tr>
   				<tr>
   					<td>Foto Diri</td>
-  					<td><img src="{{asset('storage/identitas/foto/'.$participant->foto1)}}" alt="{{$participant->foto1}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{asset('storage/identitas/foto/'.$participant->foto1)}}" alt="{{$participant->foto1}}" style="width: 300px; height: 400px;" onerror="this.style.display= 'none'"></td>
   					<td>Foto Diri</td>
-  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto2)}}" alt="{{$participant->foto2}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto2)}}" alt="{{$participant->foto2}}" style="width: 300px; height: 400px;" onerror="this.style.display= 'none'"></td>
   					<td>Foto Diri</td>
-  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto3)}}" alt="{{$participant->foto3}}" style="width: 300px; height: 400px;"></td>
+  					<td><img src="{{url('storage/identitas/foto/'.$participant->foto3)}}" alt="{{$participant->foto3}}" style="width: 300px; height: 400px;" onerror="this.style.display= 'none'"></td>
   				</tr>
   				<tr>
   					<td>Kartu Pelajar</td>
-  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu1)}}" alt="{{$participant->kartu1}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu1)}}" alt="{{$participant->kartu1}}" style="width: 400px; height: 300px;" onerror="this.style.display= 'none'"></td>
   					<td>kartu pelajar</td>
-  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu2)}}" alt="{{$participant->kartu2}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu2)}}" alt="{{$participant->kartu2}}" style="width: 400px; height: 300px;" onerror="this.style.display= 'none'"></td>
   					<td>kartu pelajar</td>
-  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu3)}}" alt="{{$participant->kartu3}}" style="width: 400px; height: 300px;"></td>
+  					<td><img src="{{url('storage/identitas/kartu/'.$participant->kartu3)}}" alt="{{$participant->kartu3}}" style="width: 400px; height: 300px;" onerror="this.style.display= 'none'"></td>
   				</tr>
   			</table>
   		</div>

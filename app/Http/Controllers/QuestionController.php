@@ -153,8 +153,9 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        $data = question::find($id)->exam_id;
+        $data = question::find($id);
+        storage::disk('public')->delete('gambar/soal/'.$data->exam_id. '/' . $data->gambar);
         question::destroy($id);
-        return redirect('soal/'.$data)->with('delete','test deleted successfully!');
+        return redirect('soal/'.$data->exam_id)->with('delete','test deleted successfully!');
     }
 }

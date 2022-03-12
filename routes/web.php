@@ -18,7 +18,7 @@ use App\Models\Controller;
 
 Route::get('/', function() { $data = controller::whereIn('id', [1,2,3,4,5,6,7])->get(); return view('home', compact('data'));});
 Route::get('/webinar', function() {$data = controller::whereIn('id', [16,17,18,19,20,21,22,23,24,25,27,26])->get();return view('webinar1', compact('data'));});
-Route::get('/login', [App\Http\Controllers\AuthAdminController::class, 'admin']);
+Route::get('/login', [App\Http\Controllers\AuthAdminController::class, 'admin'])->name('login');
 Route::post('/check', [App\Http\Controllers\AuthAdminController::class, 'login']);
 Route::get('/logout', [App\Http\Controllers\AuthAdminController::class, 'logout']);
 Route::get('/registrasi', [App\Http\Controllers\AuthAdminController::class, 'registrasi']);
@@ -107,7 +107,10 @@ Route::put('/exam/store/{id}', [App\Http\Controllers\ExamController::class, 'sto
 Route::post('/exams/{id}', [App\Http\Controllers\ExamController::class, 'preShow']);
 Route::post('/exam/{data}', [App\Http\Controllers\ExamController::class, 'show']);
 Route::get('/exam/delete/{nomor}', [App\Http\Controllers\ExamController::class, 'show']);
-Route::get('/upload-karya', function() {return view('user.karya');});
+Route::get('/home/upload-karya', function() {return view('user.karya', [
+	'poster' => controller::find(28)->nilai,
+	'essay' => controller::find(29)->nilai
+]);});
 });
 
 Route::get('/print', [App\Http\Controllers\UserController::class, 'test']);

@@ -52,10 +52,11 @@
                                             <td>{{$p->user->participant->first()->sekolah}}</td>
                                             <td>
                                                 <form method="GET" action="{{url('poster/edit/'.$p->id)}}">
-                                                <button class="btn badge badge-warning p-2">Edit</button>
+                                                <button class="btn badge badge-warning p-2"><i class="fa fa-pencil"></i></button>
+                                            </button>
                                                 </form>
                                                 <hr>
-                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}">Delete</a>
+                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -78,7 +79,7 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">Select "Delete" below if you are ready to delete your current test.</div>
+                            <div class="modal-body">Select "Delete" below if you are ready to delete your current Poster.</div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                 <form action="{{url('poster/delete/'.$p->id)}}" method="POST">

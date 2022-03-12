@@ -48,14 +48,14 @@
                                             <td><img src="{{url('storage/gambar/soal/'.$p->exam_id. '/' .$p->gambar)}}" width="150px"  alt="{{$p->gambar}}"></td>
                                             <td>{{strip_tags($p->soal)}}</td>
                                             <td>
-                                                <a class="btn btn-info" data-toggle="modal" data-target="#detail{{$p->id}}">Show</a>
+                                                <a class="btn badge bg-info p-2 text-white" data-toggle="modal" data-target="#detail{{$p->id}}">Show</a>
                                             </td>
                                             <td>
                                             	<form method="GET" action="{{url('soal/edit/'.$p->id)}}">
-                                                <button class="btn badge badge-warning p-2">Edit</button>
+                                                <button class="btn badge badge-warning p-2"><i class="fa fa-pencil"></i></button>
                                                 </form>
                                                 <hr>
-                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}">Delete</a>
+                                                <a class="btn badge badge-danger p-2" data-toggle="modal" data-target="#deleteModal{{$p->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <?php $i++; ?>

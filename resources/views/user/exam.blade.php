@@ -13,7 +13,7 @@ $data = $d[0];
     <title>Bioscope</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('files/Logo.png')}}"/>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('user/fonts/icomoon/style.css')}}">
@@ -104,7 +104,7 @@ $data = $d[0];
 							<div>
 								<div class="row">
 									<div class="col-md-4">
-										<img src="{{asset('storage/gambar/'.$soal->gambar)}}" id="img" onerror="this.style.display= 'none'" style="width: 600px; height: 400px">
+										<img src="{{asset('storage/gambar/soal/'.$soal->exam_id.'/'.$soal->gambar)}}" id="img" onerror="this.style.display= 'none'" style="width: 600px; height: 400px">
 									</div>
 								</div>
 								<div class="row">
@@ -197,7 +197,7 @@ $data = $d[0];
   document.querySelector('#timer').innerHTML = hours + "h "
   + minutes + "m " + seconds + "s ";
    // If the count down is 5 minutes again, write some text
-   if (distance < 5*60*1000 && distance > 4*60*1000) {
+   if (distance < 5*60*1000 && distance > 5*60*1000-1000) {
     document.getElementById('alerting').click();
   }
   // If the count down is finished, write some text
